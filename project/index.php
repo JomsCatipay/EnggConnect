@@ -3,25 +3,25 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Microblogging Site</title>
+	<title>Test</title>
 </head>
 <body>
 	<?php
 	require_once 'meekrodb.2.3.class.php';
-    DB::$user = 'joms';
-    DB::$password = 'IaMj0ej0e';
-    DB::$dbName = 'MicroBlog';
+    DB::$user = 'EnggConnect';
+    DB::$password = 'password';
+    DB::$dbName = 'EnggConnectTest';
 	if(isset($_SESSION['loggedin'])){
 		echo '
 		<form action="postForm.php" method="post">
-			<TextArea name="microBlog" id="microBlog" cols="30" rows="10"></TextArea>
+			<TextArea name="Post" id="Post" cols="30" rows="10"></TextArea>
 			<input type="submit">
 		</form>
 		';
 		 echo '<a href="logout.php">Log Out</a>';
-		 $result = DB::query("SELECT post FROM microBlog");
+		 $result = DB::query("SELECT post FROM Posts");
 		 foreach ($result as $row) {
-		 	echo " <div class='microBlog'>".$row['post']."</div> ";
+		 	echo " <div class='Posts'>".$row['post']."</div> ";
 		 }
 	}
     else {

@@ -1,0 +1,33 @@
+<?php session_start(); ?>
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Sign Up | Eng'g Connect</title>
+</head>
+<body>
+	<font face="Sans Serif">	
+	   	<h2>Sign Up</h2>
+   		<form action="registerForm.php" method="post">
+   				<legend>Sign Up</legend>
+                <p><input type="text" name="username" id="username" placeholder="Username" required></p>
+                <p><input type="text" name="studentnumber" id="snum" placeholder="Student Number" required></p>
+                <p><input type="text" name="password" id="password" placeholder="Password" required></p>
+                <p><input type="text" name="password2" id="p2" placeholder="Retype Password" required></p>
+                <p><select name="department" required>
+                		<option value="">Department/Institute</option>
+                		<option value="Che">Department of Chemical Engineering</option>
+                		<option value="CE">Institute of Civil Engineering</option>
+                		<option value="CS">Department of Computer Science</option>
+                		<option value="EEE">Electrical and Electronics Engineering Institute</option>
+                		<option value="GE">Department of Geodetic Engineering</option>
+                		<option value="IE">Department of Industrial Engineeringand Operations Research</option>
+                		<option value="ME">Department of Mechanical Engineering</option>
+                		<option value="MMM">Department of Mining, Metallurgical, and Materials Engineering</option>
+                	</select>
+            	</p>
+                <input type="submit", value="Create Account">
+        </form>
+    </font>
+</body>
+</html>

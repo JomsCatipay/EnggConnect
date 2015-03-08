@@ -6,8 +6,8 @@
     DB::$dbName = 'EnggConnectTest';
 	DB::debugMode();
 
-	$microBlog = $_POST['microBlog'];
-	DB::insert('Posts', array('post' => $microBlog));
+	$post = $_POST['post'];
+	DB::insert('Posts', array('post' => $post));
 
 	header('Location: http://localhost/project');
 ?>

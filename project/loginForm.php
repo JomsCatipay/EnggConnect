@@ -12,7 +12,7 @@
 	$result = DB::query("SELECT * FROM users where username = %s", $username);
 	foreach($result as $row){
 		$hash = $row['password'];
-		$hash = substr($hash, 0, 60);
+		//$hash = substr($hash, 0, 60);
 		if(password_verify($password, $hash)){
 			$_SESSION['loggedin'] = 1;
 		}

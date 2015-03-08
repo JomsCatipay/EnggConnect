@@ -5,13 +5,14 @@ USE enggconnecttest;
 CREATE TABLE Users(
 	user_id integer auto_increment,
 	username varchar(30),
-	password varchar(30),
+	password varchar(255),
+	
 	primary key(user_id)
 );
 
 CREATE TABLE Posts(
 	post_id integer auto_increment,
-	post varchar(250),
+	post varchar(255),
 	primary key(post_id)
 );
 

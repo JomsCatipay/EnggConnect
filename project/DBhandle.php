@@ -49,6 +49,10 @@
 		$result = DB::query("SELECT * FROM Answers WHERE q_id = %d", $q_id);
 		return $result;
 	}
+	function getPostsWithComments($q_id){
+		$result = DB::query("SELECT * FROM Posts WHERE question_id=%d AND explanation!='' ", $q_id);
+		return $result;
+	}
 
 	//--ADDERS
 	function addUser($uname, $pass, $snum, $dept){
@@ -61,10 +65,11 @@
 	            'type' => 'Contributor'
 	    ));
 	}
-	function post($ans_id, $exp){
+	function post($ans, $que_id, $exp){
 	    DB::insert('Posts', array(
-	          	'poster_id' => $_SESSION['loggedUser'],
-	            'answer_id' => $ans_id,
+	          	'poster_name' => getUsername($_SESSION['loggedUser']),
+	            'answer_value' => $ans,
+	            'question_id' => $que_id,
 	            'explanation' => $exp,
 	    ));
 	}

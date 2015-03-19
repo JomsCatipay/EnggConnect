@@ -9,6 +9,8 @@ CREATE TABLE IF NOT EXISTS Users(
 	dept ENUM ('ChE', 'CE', 'CS', 'EEE', 'GE', 'IE', 'ME', 'MMM'),
 	snum varchar(10),
 	type ENUM ('Contributor', 'Administrator') NOT NULL,
+
+	unique key(username),
 	primary key(user_id)
 );
 
@@ -39,7 +41,7 @@ CREATE TABLE IF NOT EXISTS Questions(
 CREATE TABLE IF NOT EXISTS Answers(
 	a_id integer auto_increment NOT NULL,
 	q_id integer,
-	answer TEXT,
+	answer varchar(255) ,
 
 	foreign key (q_id) references Questions(q_id) 
 		on delete cascade 
@@ -49,15 +51,16 @@ CREATE TABLE IF NOT EXISTS Answers(
 
 CREATE TABLE IF NOT EXISTS Posts(
 	p_id integer auto_increment NOT NULL,
-	poster_id integer,
-	answer_id integer,
+	poster_name varchar(30),
+	answer_value varchar(255),
+	question_id integer,
 	date_of_post TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	explanation TEXT,
 
-	foreign key (poster_id) references Users(user_id) 
+	foreign key (poster_name) references Users(username)
 		on delete set null
 		on update cascade,
-	foreign key (answer_id) references Answers(a_id) 
+	foreign key (question_id) references Questions(q_id) 
 		on delete cascade 
 		on update cascade,
 	primary key(p_id)

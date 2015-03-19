@@ -44,8 +44,8 @@
 		action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
         <input type="text" name="username" id="username" placeholder="Username" value="<?php echo $user ?>"> <span style="color:red;font-weight:bold"><?php echo $uErr;?></span> </br>
         <input type="text" name="studentnumber" id="snum" placeholder="Student Number" value="<?php echo $snum ?>"><span style="color:red;font-weight:bold"><?php echo $sErr;?></span> </br>
-        <input type="text" name="password" id="password" placeholder="Password" value="<?php echo $pass ?>"><span style="color:red;font-weight:bold"><?php echo $pErr;?></span> </br>
-        <input type="text" name="password2" id="p2" placeholder="Retype Password" value="<?php echo $pass2 ?>"><span style="color:red;font-weight:bold"><?php echo $p2Err;?></span> </br>
+        <input type="password" name="password" id="password" placeholder="Password" value="<?php echo $pass ?>"><span style="color:red;font-weight:bold"><?php echo $pErr;?></span> </br>
+        <input type="password" name="password2" id="p2" placeholder="Retype Password" value="<?php echo $pass2 ?>"><span style="color:red;font-weight:bold"><?php echo $p2Err;?></span> </br>
         <select name="department">
         		<option value="">Department/Institute</option>
         		<option value="Che">Department of Chemical Engineering</option>

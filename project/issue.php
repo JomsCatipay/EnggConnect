@@ -3,12 +3,15 @@
 	$issue = getTopic($_GET['t_id']);
 	$question = getQuestion($issue['topic_id']);
 	$answers = getAnswers($question['q_id']);
-	$posts = getPosts($question['q_id']);
+	$posts = getPostsWithComments($question['q_id']);
+	//echo count($posts);
 
 	if($_SERVER["REQUEST_METHOD"] == "POST"){
 		$p_ans = clean_up($_POST['answer']);
 		$p_exp = clean_up($_POST['explination']);
-		post($p_ans, $p_exp);
+		post($p_ans, $question['q_id'], $p_exp);
+		$echos = $_GET['t_id'];
+		header("Location: https://localhost/project/issue.php?t_id=$echos");
 	}
 ?>
 <!doctype html>
@@ -45,7 +48,7 @@
 				?>
 				<form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?t_id=<?php echo $_GET['t_id']?>">
 					<?php foreach($answers as $row):?>
-						<input type="radio" name="answer" value="<?php echo $row['a_id'];?>">
+						<input type="radio" name="answer" value="<?php echo $row['answer'];?>">
 						<?php echo $row['answer'];?> </br>
 					<?php endforeach;?>
 					<input type="text" name="explination" placeholder="you may add an explanation">
@@ -55,7 +58,11 @@
 			</div>
 		</div>
 		<div id="answer_block">
-			<!-- blah blah -->
+			<?php foreach($posts as $row): ?>
+				<p> <?php echo $row['poster_name']?> answered <?php echo $row['answer_value']?> with explanation:</br>
+					<?php echo $row['explanation']?>
+				</p>
+			<?php endforeach;?>
 		</div>
 	</div>
 	

@@ -31,37 +31,41 @@
 		}
 	}
 ?>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<title>Sign Up | Eng'g Connect</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-	<?php include 'header.php'; ?>	
-   	<h2>Sign Up</h2>
-		<form method="POST"
-		action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-        <input type="text" name="username" id="username" placeholder="Username" value="<?php echo $user ?>"> <span style="color:red;font-weight:bold"><?php echo $uErr;?></span> </br>
-        <input type="text" name="studentnumber" id="snum" placeholder="Student Number" value="<?php echo $snum ?>"><span style="color:red;font-weight:bold"><?php echo $sErr;?></span> </br>
-        <input type="password" name="password" id="password" placeholder="Password" value="<?php echo $pass ?>"><span style="color:red;font-weight:bold"><?php echo $pErr;?></span> </br>
-        <input type="password" name="password2" id="p2" placeholder="Retype Password" value="<?php echo $pass2 ?>"><span style="color:red;font-weight:bold"><?php echo $p2Err;?></span> </br>
-        <select name="department">
-        		<option value="">Department/Institute</option>
-        		<option value="Che">Department of Chemical Engineering</option>
-        		<option value="CE">Institute of Civil Engineering</option>
-        		<option value="CS">Department of Computer Science</option>
-        		<option value="EEE">Electrical and Electronics Engineering Institute</option>
-        		<option value="GE">Department of Geodetic Engineering</option>
-        		<option value="IE">Department of Industrial Engineeringand Operations Research</option>
-        		<option value="ME">Department of Mechanical Engineering</option>
-        		<option value="MMM">Department of Mining, Metallurgical, and Materials Engineering</option>
-        	</select>
-        	<span style="color:red;font-weight:bold"><?php echo $dErr;?></span>
-		</br>
-        <input type="submit", value="Create Account">
-    </form>
-
-	<?php include 'footer.php';?>
+	<?php include 'header.php'; ?>
+	<div id="main-block">
+		<div id="form-content">
+			<h2>Sign Up</h2>
+			<form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+		    <input type="text" name="username" id="username" placeholder="Username" value="<?php echo $user ?>"> <span style="color:red;font-weight:bold"><?php echo $uErr;?></span> </br>
+		    <input type="text" name="studentnumber" id="snum" placeholder="Student Number" value=""> <span style="color:red;font-weight:bold"><?php echo $sErr;?></span> </br>
+		    <input type="password" name="password" id="password" placeholder="Password" value=""> <span style="color:red;font-weight:bold"><?php echo $pErr;?></span> </br>
+		    <input type="password" name="password2" id="p2" placeholder="Retype Password" value="<?php echo $pass2 ?>"> <span style="color:red;font-weight:bold"><?php echo $p2Err;?></span> </br>
+		    <select name="department">
+		  		<option value="">Department/Institute</option>
+		  		<option value="Che">Department of Chemical Engineering</option>
+		  		<option value="CE">Institute of Civil Engineering</option>
+		  		<option value="CS">Department of Computer Science</option>
+		  		<option value="EEE">Electrical and Electronics Engineering Institute</option>
+		  		<option value="GE">Department of Geodetic Engineering</option>
+		  		<option value="IE">Department of Industrial Engineeringand Operations Research</option>
+		  		<option value="ME">Department of Mechanical Engineering</option>
+		  		<option value="MMM">Department of Mining, Metallurgical, and Materials Engineering</option>
+		  	</select><span style="color:red;font-weight:bold"><?php echo $dErr;?></span></br>
+		    <input type="submit" id="submit" value="Create Account">
+		  </form>
+		</div>
+		<div id="statements">
+			<p>I am a statement.</p>
+		</div>
+		<?php include 'footer.php';?>
+	</div>
 </body>
 </html>

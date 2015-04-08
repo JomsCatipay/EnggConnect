@@ -1,27 +1,41 @@
 <?php
+	if(isset($_SESSION['loggedin'])) header('Location: http://localhost/project/login.php');
 	require_once 'DBhandle.php';
 
-	$title = $question = "";
-	$detail = "";
+	$title = $question = $detail = "";
 	$titErr = $detErr = $queErr = "";
-	$clearedFlag = 0;
+	$clearedFlag = 37;
 
 	if($_SERVER["REQUEST_METHOD"] == "POST"){
-		if(empty($_POST["title"])){ $uErr = " * Required"; $clearedFlag=1; }
-		else $user = clean_up($_POST["username"]);		
+		if(empty($_POST["topic_title"])){ $titErr = " * Required"; $clearedFlag=1; }
+		else $title = clean_up($_POST["topic_title"]);
 
-		$answers = $_POST["answers"];
-		foreach ($answers as $eachInput) {
+		if(strcmp($_POST["topic_detail"],"These are the details for the issue")==0){ $detErr = " * Required"; $clearedFlag=1; }
+		else $detail = clean_up($_POST["topic_detail"]);
+//*/
+		if(empty($_POST["topic_question"])){ $queErr = " * Required"; $clearedFlag=1; }
+		else $question = clean_up($_POST["topic_question"]);
+
+		if($clearedFlag==37){
+			$t_id = addTopic($title, $detail);
+			$q_id = addQuestion($t_id, $question);
+			if(isset($_POST["answers"])){
+				$answers = $_POST["answers"];
+				foreach ($answers as $eachInput) {
+					if(strcmp($eachInput, "")!=0){ addAnswer($q_id, $eachInput); }
+				}
+			}
+			header('Location: http://localhost/project');
 		}
 	}
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<meta charset="UTF-8">
 	<title>Add New Topic | Eng'g Connect</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
-	<meta charset="UTF-8">
-	<script src="myFirst.js"></script>
+	<script src="AddIssueDynamics.js"></script>
 </head>
 <body>
 	<?php include "header.php";?>

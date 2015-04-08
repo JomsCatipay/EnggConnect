@@ -1,7 +1,7 @@
 <?php 
 	require_once 'DBhandle.php';
 	if(isset($_GET['logoutG'])) logoutUser();
-	$posts = getHomeTopics();
+	$posts = getManyTopics(3);
 ?>
 <!DOCTYPE html>
 <html lang="en">

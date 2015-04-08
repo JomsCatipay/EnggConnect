@@ -4,14 +4,16 @@
 	$question = getQuestion($issue['topic_id']);
 	$answers = getAnswers($question['q_id']);
 	$posts = getPostsWithComments($question['q_id']);
-	//echo count($posts);
+	$flag = isset($_SESSION['loggedin']) && !hasUserAnswered($question['q_id']);
 
 	if($_SERVER["REQUEST_METHOD"] == "POST"){
 		$p_ans = clean_up($_POST['answer']);
-		$p_exp = clean_up($_POST['explination']);
-		post($p_ans, $question['q_id'], $p_exp);
-		$echos = $_GET['t_id'];
-		header("Location: https://localhost/project/issue.php?t_id=$echos");
+		if(!empty($p_ans)){
+			$p_exp = clean_up($_POST['explination']);
+			post($p_ans, $question['q_id'], $p_exp);
+			$echos = $_GET['t_id'];
+			header("Location: https://localhost/project/issue.php?t_id=$echos");
+		}
 	}
 ?>
 <!DOCTYPE html>
@@ -29,7 +31,7 @@
 			<div id="topic-content">
 				<div id="topic-header">
 					<h2><?php echo $issue['title']; ?></h2>
-					<p>Posted on <?php echo $issue['date_of_post'];?> by <?php echo getUsername($issue['poster_id'])?></p>
+					<p>Posted on <?php echo $issue['date_of_post'];?> by <?php echo getUser($issue['poster_id'])['username']?></p>
 				</div>
 				<div id="topic-details">
 					<p><?php echo $issue['details']?></p>
@@ -75,15 +77,14 @@
 		<div id="aside">
 			<h3>Related Topics</h3>
 			<ul id="rel-topics">
+				<?php
+					$topics = getManyTopics(6);
+					foreach($topics as $row):
+				?>
 				<li>
-					<a href="index.php">Topic here...</a>
+					<a href="issue.php?t_id=<?php echo $row['topic_id']?>"><?php echo $row['title']?></a>
 				</li>
-				<li>
-					<a href="index.php">Topic here...</a>
-				</li>
-				<li>
-					<a href="index.php">Topic here...</a>
-				</li>
+			<?php endforeach; ?>
 			</ul>
 		</div>
 		<?php include 'footer.php';?>

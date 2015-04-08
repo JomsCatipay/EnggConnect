@@ -47,16 +47,16 @@
 				<p>
 				<ul class="answers">
 					<?php 
-						if(isset($_SESSION['loggedin']) && !empty($answers)):
+						if(!empty($answers)):
 					?>
 						<form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?t_id=<?php echo $_GET['t_id']?>">
-							<?php foreach($answers as $row):?>
-								<li>
-									<input type="radio" name="answer" value="<?php echo $row['answer'];?>" /><?php echo $row['answer'];?>
-								</li>
-							<?php endforeach;?>
-							<input type="text" name="explination" placeholder="Add an explanation (optional)" />
-							<input type="Submit" value="Submit" />
+						<?php foreach($answers as $row):?>
+							<?php echo $row['vote_count']?>
+							<?php if($flag):?><input type="radio" name="answer" value="<?php echo $row['a_id'];?>"><?php endif;?>
+							<?php echo $row['answer'];?> </br>
+						<?php endforeach;?>
+						<?php if($flag):?><input type="text" name="explination" placeholder="you may add an explanation"><?php endif;?>
+						<?php if($flag):?><input type="Submit" value="Submit"><?php endif;?>
 						</form>
 					<?php endif;?>
 				</ul>

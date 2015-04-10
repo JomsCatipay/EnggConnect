@@ -42,6 +42,7 @@ CREATE TABLE IF NOT EXISTS Answers(
 	a_id integer auto_increment NOT NULL,
 	q_id integer,
 	answer varchar(255) ,
+	vote_count integer,
 
 	foreign key (q_id) references Questions(q_id) 
 		on delete cascade 
@@ -76,9 +77,34 @@ CREATE TABLE IF NOT EXISTS Replies(
 	foreign key (poster_id) references Users(user_id)
 		on delete set null
 		on update cascade,
-	forign key (a_id) references Answers(a_id)
+	foreign key (a_id) references Answers(a_id)
 		on delete cascade
 		on update cascade,
+);
+
+CREATE TABLE IF NOT EXISTS UserQueue(
+	u_id integer,
+	action ENUM ('Upgrade', 'Downgrade'),
+	date_of_post TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	vote_count integer,
+
+	foreign key (u_id) references Users(user_id)
+		on delete cascade
+		on update cascade,
+	primary key(u_id)
+);
+
+CREATE TABLE IF NOT EXISTS QueuePosts(
+	admin_id integer,
+	pawn_id integer,
+
+	foreign key (admin_id) references Users(user_id)
+		on delete cascade
+		on update cascade,
+	foreign key (pawn_id) references UserQueue(u_id)
+		on delete cascade
+		on update cascade,
+	primary key(admin_id, pawn_id)
 );
 
 CREATE USER 'EnggConnect'@'localhost' IDENTIFIED BY 'password';

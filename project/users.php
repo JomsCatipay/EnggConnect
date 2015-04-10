@@ -36,13 +36,19 @@
 			<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 				<p> <h3><?php echo $row['username']?></h3>
 					<?php if(isset($row['snum'])) echo $row['snum']?></br>
-					<?php echo $row['dept']?></br>
+					<?php echo $row['dept']?>
 					<input type="hidden" name="id" value="<?php echo $que['u_id'];?>">
-					<?php if($row['type']=='Administrator'):?>
+					<?php if(!hasVoted($que['u_id'])): ?>
+						</br>
+					<?php 	if($row['type']=='Administrator'):?>
 						<input type="submit" name="confirm" value="Confirm Degrade"></input>
-					<?php else:?>
+					<?php 	else:?>
 						<input type="submit" name="confirm" value="Confirm Upgrade"></input>
-					<?php endif;?></br>
+					<?php 
+						endif;
+							endif;
+					?>
+					</br>Vote Count: <?php echo $que['vote_count'] ?></br>
 					____________________________________________________________________
 				</p>
 			</form>
@@ -50,6 +56,7 @@
 	<?php endforeach;?>
 
 	<!-- others -->
+	</br></br>
 	<h2>Users not in Queue</h2>
 	<?php foreach($users as $row): ?>
 		<div id="u_<?php echo $row['user_id']?>">

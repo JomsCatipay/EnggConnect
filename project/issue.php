@@ -1,10 +1,7 @@
 <?php 
 	require_once 'DBhandle.php';
 	$issue = getTopic($_GET['t_id']);
-	$question = getQuestion($issue['topic_id']);
-	$answers = getAnswers($question['q_id']);
-	$posts = getPostsWithComments($question['q_id']);
-	$flag = isset($_SESSION['loggedin']) && !hasUserAnswered($question['q_id']);
+	//$question = getQuestion($issue['topic_id']);
 
 	if($_SERVER["REQUEST_METHOD"] == "POST"){
 		$p_ans = clean_up($_POST['answer']);
@@ -21,7 +18,6 @@
 <head>
 	<meta charset="UTF-8">
 	<title><?php echo $issue['title'];?> | Eng'g Connect</title>
-	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
 	<?php include "header.php"; ?>
@@ -41,36 +37,56 @@
 				<h3>Question:</h3>
 				<p>
 					<?php
-						if(!$question) echo "there is no question for this topic";
-						else echo $question['question'];
+						$questions = getQuestions($issue['topic_id']);
+						//$q_row = getQuestion($issue['topic_id']);
+						//if(empty($q_row)) echo "there is no question for this topic";
+						if(!empty($questions)):
+							foreach ($questions as $q_row):
+								echo $q_row['question'];
 					?>
-				<p>
+				</p>
 				<ul class="answers">
 					<?php 
-						if(!empty($answers)):
+							$answers = getAnswers($q_row['q_id']);
+								if(!empty($answers)):
 					?>
 						<form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?t_id=<?php echo $_GET['t_id']?>">
-						<?php foreach($answers as $row):?>
+						<?php 
+								$flag = isset($_SESSION['loggedin']) && !hasUserAnswered($q_row['q_id']);
+								foreach($answers as $row):
+						?>
 							<?php echo $row['vote_count']?>
 							<?php if($flag):?><input type="radio" name="answer" value="<?php echo $row['a_id'];?>"><?php endif;?>
 							<?php echo $row['answer'];?> </br>
-						<?php endforeach;?>
+						<?php 	endforeach;?>
 						<?php if($flag):?><input type="text" name="explination" placeholder="you may add an explanation"><?php endif;?>
 						<?php if($flag):?><input type="Submit" value="Submit"><?php endif;?>
 						</form>
-					<?php endif;?>
+					<?php 
+								endif;
+							endforeach;
+						else: echo "there is no question for this topic";
+						endif;
+					?>
 				</ul>
 			</div>
 			<div id="comments-section">
 				<h3>Comments:</h3>
 				<ul class="comments">
-					<?php foreach($posts as $row): ?>
+					<?php 
+						foreach ($questions as $q_row):
+							$posts = getPostsWithComments($q_row['q_id']);
+							foreach($posts as $row): 
+					?>
 						<li>
 							<p><?php echo $row['explanation']?></p>
 							<p id="author">- <?php echo $row['poster_name']?></p>
 							<p id="author-info">answered <?php echo $row['answer_value']?></p>
 						</li>
-					<?php endforeach;?>
+					<?php
+							endforeach;
+						endforeach;
+					?>
 				</ul>
 			</div>
 		</div>

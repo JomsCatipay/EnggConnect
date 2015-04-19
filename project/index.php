@@ -22,22 +22,21 @@
 		<ul id="topic-display" style="clear: both">
 			<?php
 				foreach($posts as $row):
-					$que = getQuestion($row['topic_id']);
+					$que = getQuestions($row['topic_id']);
 			?>
 				<li class="topic-entry">
 					<div id="topic-title" style="clear: both">
 						<a href="issue.php?t_id=<?php echo $row['topic_id']?>">
 							<h2><?php echo $row['title']?></h2>
 						</a>
-						<?php
-							$issue = getTopic($row['topic_id']);
-						?>
-						<p id="topic-footer">Posted on <?php echo $issue['date_of_post'];?></p>
+						<p id="topic-footer">Posted on <?php echo $row['date_of_post'];?></p>
 					</div>
 					<div id="topic-detail" text-overflow="ellipsis"><?php echo $row['details']?></div>
 					<p id="q-sign">Q:</p>
 					<a href="issue.php?t_id=<?php echo $row['topic_id']?>">
-						<h3><?php echo $que['question']?></h3>
+						<?php foreach($que as $que_r): ?>
+						<h3><?php echo $que_r['question']?></h3>
+						<?php endforeach;?>
 					</a>
 				</li>
 			<?php endforeach;?>

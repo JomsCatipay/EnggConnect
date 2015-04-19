@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS Users(
 	type ENUM ('Contributor', 'Administrator') NOT NULL,
 
 	unique key(username),
+	unique key(snum),
 	primary key(user_id)
 );
 
@@ -69,17 +70,18 @@ CREATE TABLE IF NOT EXISTS Posts(
 
 CREATE TABLE IF NOT EXISTS Replies(
 	r_id integer auto_increment NOT NULL,
-	a_id integer,
-	poster_id integer,
+	p_id integer,
+	poster_name varchar(30),
 	date_of_post TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	reply TEXT,
 
-	foreign key (poster_id) references Users(user_id)
+	foreign key (poster_name) references Users(username)
 		on delete set null
 		on update cascade,
-	foreign key (a_id) references Answers(a_id)
+	foreign key (p_id) references Posts(p_id)
 		on delete cascade
 		on update cascade,
+    primary key(r_id)
 );
 
 CREATE TABLE IF NOT EXISTS UserQueue(

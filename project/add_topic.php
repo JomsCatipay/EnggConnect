@@ -2,28 +2,50 @@
 	if(isset($_SESSION['loggedin'])) header('Location: http://localhost/project/login.php');
 	require_once 'DBhandle.php';
 
-	$title = $question = $detail = "";
-	$titErr = $detErr = $queErr = "";
+	$title = $detail = "";
+	$qList = array();
+	$aList = array();
+	$titErr = $detErr = $queErr = $ansErr = "";
 	$clearedFlag = 37;
 
+	//nested arrays
 	if($_SERVER["REQUEST_METHOD"] == "POST"){
 		if(empty($_POST["topic_title"])){ $titErr = " * Required"; $clearedFlag=1; }
 		else $title = clean_up($_POST["topic_title"]);
 
-		if(strcmp($_POST["topic_detail"],"These are the details for the issue")==0){ $detErr = " * Required"; $clearedFlag=1; }
+		if(strcmp($_POST["topic_detail"],"")==0){ $detErr = " * Required"; $clearedFlag=1; }
 		else $detail = clean_up($_POST["topic_detail"]);
-//*/
-		if(empty($_POST["topic_question"])){ $queErr = " * Required"; $clearedFlag=1; }
-		else $question = clean_up($_POST["topic_question"]);
+
+		$i = 1;
+		foreach ($_POST["questions"] as $eachInput) {
+			$tag = "answers{$i}";
+			if(strcmp($eachInput, "")==0){ $queErr = "* A question is not filled"; $clearedFlag=1;}
+			else{
+				$qList[] = $eachInput;
+				$ansList = array();
+				foreach ($_POST[$tag] as $lol) {
+					if(strcmp($lol, "")!=0){ $ansList[] = $lol; }
+				}
+				if(sizeof($ansList)<2){ $ansErr = "* There must be atleast 2 answers to a question"; $clearedFlag=1;}
+				array_push($aList, $ansList);
+			}
+			$i++;
+		}
 
 		if($clearedFlag==37){
 			$t_id = addTopic($title, $detail);
-			$q_id = addQuestion($t_id, $question);
-			if(isset($_POST["answers"])){
-				$answers = $_POST["answers"];
-				foreach ($answers as $eachInput) {
-					if(strcmp($eachInput, "")!=0){ addAnswer($q_id, $eachInput); }
+			$index=0;
+			$q_id=0;
+			foreach ($qList as $eachInput) {
+				//echo $eachInput;
+				$q_id = addQuestion($t_id, $eachInput);
+				//echo "-".$q_id."-";
+				foreach($aList[$index] as $row){
+					//echo $row." ";
+					addAnswer($q_id, $row);
 				}
+				//echo " out ";
+				$index++;
 			}
 			header('Location: http://localhost/project');
 		}
@@ -44,14 +66,44 @@
 		<div id="add-topic">
 			<h2>Add New Topic</h2>
 			<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-				<input type="text" name="topic_title" id="title" placeholder="Title" value="<?php echo $title;?>"></br>
-				<textarea name="topic_detail" id="detail" placeholder="These are the details for the issue." rows="5" cols="50"><?php echo $detail;?></textarea></br> 
-				<input name="topic_question" id="question" type="text" size="39" placeholder="Question" value="<?php echo $question;?>">
-				<h3>Answers:</h3>
-				<div id="answers">
+				<input type="text" name="topic_title" id="title" placeholder="Title" value="<?php echo $title;?>"><span style="color:red;font-weight:bold"><?php echo $titErr;?></span></br>
+				<textarea name="topic_detail" id="detail" placeholder="These are the details for the issue." rows="5" cols="50"><?php echo $detail;?></textarea><span style="color:red;font-weight:bold"><?php echo $detErr;?></span></br> 
+				<h3>Questions:</h3>
+				</br><span style="color:red;font-weight:bold"><?php echo $queErr;?></span>
+				</br><span style="color:red;font-weight:bold"><?php echo $ansErr;?></span>
+				<div id="questions">
+				<?php
+					$i = 1; 
+					foreach ($qList as $quest): ?>
+					<div id='question<?php echo $i;?>'>
+						<input name='questions[]' type='text' size='50' placeholder='Question' value='<?php echo $quest;?>' onload="queCountAdd()">
+						<h4>Answers:</h4>
+						<div id='answers<?php echo $i;?>'>
+							<?php
+								$j = 0; 
+								foreach($aList[$i-1] as $ans):?>
+							<div id='answer<?php echo $i;?>-<?php echo $j; ?>'>
+								<input type='text' size='50' name='answers<?php echo $i?>[]' placeholder='Answer' value='<?php echo $ans?>'></br>
+							</div>
+							<?php
+								$j++;
+							endforeach;?>
+						</div>
+						<input type='button' name='add_answer' id='addAnswerButton' value='Add an Answer' onclick='addAnswer(<?php echo $i?>)'>
+						<input type='button' name='del_answer' id='delAnswerButton' value='Delete last Answer' onclick='delAnswer(<?php echo $i?>)'>
+						</br></br>
+					</div>
+					<script type="text/javascript">
+						var count = <?php echo $j; ?>;
+						queCountAdd(count);
+					</script>
+				<?php
+						$i++;
+					endforeach;
+				?>
 				</div>
-				<input type="button" name="add_answer" id="addAnswerButton" value="Add an answer" onclick="addAnswer()">
-				<input type="button" name="del_answer" id="delAnswerButton" value="Delete last answer" onclick="delAnswer()">
+				<input type="button" name="add_question" id="addQuestionButton" value="Add a Question" onclick="addQuestion()">
+				<input type="button" name="del_question" id="delQuestionButton" value="Delete last Question" onclick="delQuestion()">
 				</br></br>
 				<input type="submit" name="submit_issue" id="submitButton" value="Add">
 			</form>

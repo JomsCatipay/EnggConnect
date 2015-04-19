@@ -77,7 +77,7 @@
 		//*/
 	}
 	function getQueuedUsers(){
-		$result = DB::query("SELECT * FROM UserQueue WHERE u_id NOT IN(SELECT pawn_id FROM QueuePosts WHERE admin_id=%d) ORDER BY date_of_post DESC", $_SESSION['loggedUser']['user_id']);
+		$result = DB::query("SELECT * FROM UserQueue ORDER BY date_of_post DESC", $_SESSION['loggedUser']['user_id']);
 		return $result;
 	}
 	function getTopic($topic_id){
@@ -89,8 +89,12 @@
 		if(!$result) return array();
 		return $result;
 	}
-	function getQuestion($topic_id){
-		$result = DB::queryFirstRow("SELECT * FROM Questions WHERE topic_id = %d", $topic_id);
+	function getQuestions($topic_id){
+		$result = DB::query("SELECT * FROM Questions WHERE topic_id = %d", $topic_id);
+		return $result;
+	}
+	function getQuestion($id){
+		$result = DB::queryFirstRow("SELECT * FROM Questions WHERE q_id = %d", $id);
 		return $result;
 	}
 	function getAnswers($q_id){
@@ -99,6 +103,10 @@
 	}
 	function getPostsWithComments($q_id){
 		$result = DB::query("SELECT * FROM Posts WHERE question_id=%d AND explanation!='' ", $q_id);
+		return $result;
+	}
+	function getReplies($p_id){
+		$result = DB::query("SELECT * FROM Replies WHERE p_id=%d",$p_id);
 		return $result;
 	}
 
@@ -127,7 +135,7 @@
 				'topic_id' => $topic_id,
 				'question' => $question
 		));
-		$result = DB::queryFirstRow("SELECT * FROM Questions WHERE topic_id = %d", $topic_id);
+		$result = DB::queryFirstRow("SELECT * FROM Questions WHERE topic_id = %d AND question = %s", $topic_id, $question);
 		return $result['q_id'];
 	}
 	function addAnswer($que_id, $answer){
@@ -137,16 +145,24 @@
 		));
 	}
 	function post($a_id, $que_id, $exp){
+		echo $que_id;
 		$pawn = DB::queryFirstRow("SELECT * FROM Answers WHERE a_id = %d", $a_id);
 
 	    DB::insert('Posts', array(
 	          	'poster_name' => $_SESSION['loggedUser']['username'],
 	            'answer_value' => $pawn['answer'],
 	            'question_id' => $que_id,
-	            'explanation' => $exp,
+	            'explanation' => $exp
 	    ));
 
 	    DB::query("UPDATE Answers SET vote_count=vote_count+1 WHERE a_id=%d", $a_id);
+	}
+	function reply($reply,$p_id){
+		DB::insert('Replies', array(
+			'p_id' => $p_id,
+			'poster_name' => $_SESSION['loggedUser']['username'],
+			'reply' => $reply
+		));
 	}
 
 	//--AUXILLARY
@@ -155,6 +171,15 @@
 	}
 	function hasUserAnswered($q_id){
 		$result = DB::query("SELECT * FROM Posts WHERE poster_name=%s AND question_id=%d", $_SESSION['loggedUser']['username'], $q_id);
+		//echo sizeof($result);
+		return !empty($result);
+	}
+	function hasUserReplied($p_id){
+		$result = DB::query("SELECT * FROM Replies WHERE poster_name=%s AND p_id=%d", $_SESSION['loggedUser']['username'], $p_id);
+		return !empty($result);
+	}
+	function hasVoted($u_id){
+		$result = DB::query("SELECT * FROM QueuePosts WHERE admin_id=%s AND pawn_id=%s", $_SESSION['loggedUser']['user_id'], $u_id);
 		return !empty($result);
 	}
 ?>

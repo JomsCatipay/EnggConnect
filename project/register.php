@@ -1,7 +1,7 @@
 <?php 
 	require_once 'DBhandle.php';
 
-	$clearedFlag = 0;
+	$clearedFlag = 37;
 	$uErr = $pErr = $p2Err = $dErr = $sErr = "";
 	$user = $pass = $pass2 = $dept = $snum = "";
 
@@ -11,11 +11,12 @@
 		
 		if(empty($_POST["password"])){ $pErr = " * Required"; $clearedFlag=1; }
 		elseif (strlen($_POST["password"])<8){ $pErr = " * Must be atleast 8 characters long";  $clearedFlag=1; }
-		else $pass = clean_up($_POST["password"]);
-		
-		if($_POST["password2"] != $_POST["password"]) { $p2Err = " * Must be equal to password";  $clearedFlag=1;}
-		else $pass2 = clean_up($_POST["password2"]);
-		
+		else{
+			$pass = clean_up($_POST["password"]);
+			if($_POST["password2"] != $_POST["password"]) { $p2Err = " * Must be equal to password";  $clearedFlag=1;}
+			else $pass2 = clean_up($_POST["password2"]);
+		}
+				
 		if(empty($_POST["department"])){$dErr = " * Required";  $clearedFlag=1;}
 		else $dept = clean_up($_POST["department"]);
 		
@@ -24,7 +25,7 @@
 			$sErr = " * Must follow format 20yyxxxxx";  $clearedFlag=1; }
 		else $snum = clean_up($_POST["studentnumber"]);
 
-		if($clearedFlag==0){
+		if($clearedFlag==37){
 			addUser($user, $pass, $snum, $dept);
 			loginUser($user, $pass);
 			header('Location: http://localhost/project');

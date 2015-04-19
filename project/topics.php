@@ -17,20 +17,27 @@
 	<!-- possible search bar here -->
 
 	<div id="main-block">
-	<?php foreach($posts as $row): 
-		$que = getQuestion($row['topic_id']);
+	<?php if(sizeof($posts)<1):?>
+	<h2>There are no Topics Yet.</h2>
+	<?php
+		else: 
+			foreach($posts as $row):
+				$que = getQuestions($row['topic_id']);
 	?>
 		<div id="l_<?php echo $row['topic_id']?>">
 			<p> <a href="issue.php?t_id=<?php echo $row['topic_id']?>">
 				<h3><?php echo $row['title']?></h3>
 				<?php echo $row['details']?> </br></br>
-				<?php echo $que['question']?>
+				<?php foreach($que as $que_r) echo $que_r['question']?>
 				</a>
 				</br>
 				____________________________________________________________________
 			</p>
 		</div>
-	<?php endforeach;?>
+	<?php 
+			endforeach;
+		endif;
+	?>
 
 	<?php include "footer.php";?>	
 	</div>

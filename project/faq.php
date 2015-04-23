@@ -12,11 +12,10 @@
 	<?php include "header.php";?>
 
 	<div id="main-block">
-	<p>
-		FAQ to be added.</br>
-		if you want to contribute to the FAQs, please send it here</br>
-		*some random email here*
-	</p>
+		<div id="faq">
+			<h2>Frequently Asked Questions</h2>
+			<p>To Be Added...</p>
+		</div>
 
 	<?php include "footer.php";?>	
 	</div>

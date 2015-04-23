@@ -1,6 +1,7 @@
 /*reset
 --------------------------*/
-html, body, header, footer, nav, section, article, div, h1, h2, h3, p, ul, ol, li, a, form, span {
+html, body, header, footer, nav, section, article, div,
+h1, h2, h3, p, ul, ol, li, a, form, span {
 	margin: 0px;
 	padding: 0px;
 	border: 0px;
@@ -13,19 +14,16 @@ html, body, header, footer, nav, section, article, div, h1, h2, h3, p, ul, ol, l
 	text-align: left;
 	text-decoration: none;
 }
-
 ul {
 	list-style: none;
 }
-
 body {
-	background-color: #F1F1F1;
+	background-color: #FFFFFF;
 	font-family: sans-serif;
 	font-size: 100%;
 }
 
-/*topbar
---------------------------*/
+/*topbar---------------------------------------------------------------------*/
 #topbar {
 	text-align: right;
 	background-color: #000000;
@@ -35,7 +33,6 @@ body {
 	width: 970px;
 	margin: 3px auto;
 }
-
 #topbar p {
 	background-color: #000000;
 	color: #FFFFFF;
@@ -45,7 +42,6 @@ body {
 	padding-top: 3px;
 	padding-right: 3px;
 }
-
 #topbar a, #topbar a:visited {
 	background-color: #000000;
 	color: #FFFFFF;
@@ -56,17 +52,15 @@ body {
 	padding-top: 3px;
 	border-left: solid;
 	border-width: 3px;
-	border-color: #F1F1F1;
+	border-color: #FFFFFF;
 }
-
 #topbar a:hover {
 	color: #FFFFFF;
-	background-color: #E6772E;
+	background-color: #F78F1E;
 	text-decoration: underline;
 }
 
-/*main header
----------------------------*/
+/*main header-----------------------------------------------------------------*/
 header {
 	background-color: #7B1113;
 	color: #FFFFFF;
@@ -77,56 +71,87 @@ header {
 	margin: 0px auto;
 	padding: 3px;
 }
-
 header h1 a, header h1 a:visited {
 	text-decoration: none;
 	font-size: 2em;
-	margin-top: 25px;
 	margin-left: 25px;
 	color: #FFFFFF;
 	display: block;
 	float: left;
 }
-
-nav {
+header h1 img {
+	position: absolute;
+	margin-top: -45px;
+	height: 200px;
+	width: auto;
+}
+nav ul {
 	margin-top: 77px;
 	margin-right: 3px;
 	text-align: right;
 }
-
-nav a, nav a:visited {
+nav ul li {
 	display: inline-block;
-	background-color: #F1F1F1;
-	color: #7B1113;
-	font-size: 22px;
-	width: 75px;
+}
+nav ul li a {
+	display: inline-block;
+	background-color: #FFFFFF;
+	width: 90px;
 	height: 26px;
 	padding-top: 2px;
-	text-align: center;
+	color: #7B1113;
+	font-size: 22px;
 	text-decoration: none;
+	text-align: center;
 }
-
-nav a:hover {
+nav ul li a:hover {
 	background-color: #7B1113;
-	color: #F1F1F1;
+	color: #FFFFFF;
 	border: solid;
 	border-width: 1px;
-	border-color: #F1F1F1;
-	width: 73px;
+	border-color: #FFFFFF;
+	width: 88px;
 	height: 26px;
+}
+nav ul li ul {
+	position: absolute;
+	background-color: #FFFFFF;
+	margin: 0px;
+	visibility: hidden;
+}
+nav ul li ul li {
+	display: block;
+	border: solid;
+	border-width: 1px;
+	border-color: #7B1113;
+	width: 88px;
+}
+nav ul li ul li a {
+	width: 88px;
+}
+nav ul li ul li a:hover {
+	display: block;
+	width: 86px;
+}
+nav ul li:hover ul {
+	visibility: visible;
 }
 
 #main-block {
 	width: 970px;
 	margin: 3px auto;
 	display: block;
+	padding-top: 5px;
+}
+#main-block h2 {
+	font-size: 30px;
+	color: #F78F1E;
 }
 
-/*home page
----description-------*/
+/*home page---description-----------------------------------------------------*/
 #main-block #desc {
 	background-color: #FFFFFF;
-	height: 240px;
+	height: 200px;
 	width: 966px;
 	text-align: center;
 	border: solid;
@@ -134,7 +159,6 @@ nav a:hover {
 	border-color: #000000;
 	margin: 0px auto;
 }
-
 #main-block #desc p {
 	display: inline-block;
 	height: 35px;
@@ -145,257 +169,36 @@ nav a:hover {
 	padding-top: 35px;
 	color: #000000;
 	border-bottom: solid;
-	border-color: #E6772E;
+	border-color: #F78F1E;
 	border-width: 2px;
 }
 
-/*log In/Sign Up page
-------------------------*/
-#main-block #form-content {
-	display: block;
-	float: left;
-	height: 500px;
-	width: 440px;
-	padding: 20px 50px;
-	background-color: #FFFFFF;
-	color: #000000;
-}
-
-#main-block #form-content h2 {
-	font-size: 30px;
-	color: #E6772E;
-}
-
-#main-block #form-content input[type="text"],
-#main-block #form-content input[type="password"],
-#main-block #form-content select {
-	height: 30px;
-	width: 330px;
-	margin-top: 10px;
-	font-size: 18px;
-}
-
-#main-block #form-content input[type="submit"] {
-	height: 30px;
-	width: 200px;
-	margin: 50px 110px;
-	font-size: 18px;
-}
-
-#main-block #statements {
-	display: block;
-	height: 500px;
-	width: 400px;
-	float: right;
-	font-size: 35px;
-	color: #000000;
-	background-color: #F1F1F1;
-}
-
-#main-block #statements p {
-	text-align: center;
-	margin-top: 250px;
-}
-
-/*issue page
----main content---------*/
-#main-block #main-content {
-	float: left;
-	width: 670px;
-	display: block;
-	background-color: #FFFFFF;
-	color: #000000;
-}
-
-#main-block #main-content #topic-content,
-#main-block #main-content #topic-question,
-#main-block #main-content #comments-section {
-	background-color: #FFFFFF;
-	color: #000000;
-	margin: 5px 0px;
-	padding: 10px;
-	float: left;
-	display: block;
-	width: 650px;
-}
-
-#main-block #main-content #topic-content #topic-header {
-	display: block;
-	padding-bottom: 10px;
-	border-bottom: solid;
-	border-color: #000000;
-	border-width: 2px;
-}
-
-#main-block #main-content #topic-content #topic-details {
-	display: block;
-	padding-top: 10px;
-	text-align: left;
-}
-
-#main-block #main-content #topic-content #topic-header h2 {
-	font-size: 35px;
-	color: #E6772E;
-}
-
-#main-block #main-content #topic-content #topic-header p {
-	font-size: 15px;
-	color: #454545;
-}
-
-#main-block #main-content #topic-content #topic-details p {
-	font-size: 1em;
-	color: #000000;
-}
-
-#main-block #main-content #topic-question {
-	display: block;
-	background-color: #F1F1F1;
-	color: #000000;
-	border: solid;
-	border-width: 2px;
-	border-color: #000000;
-}
-
-#main-block #main-content #topic-question h3 {
-	font-size: 25px;
-	color: #7B1113;
-}
-
-#main-block #main-content #topic-question p {
-	font-size: 23px;
-	color: #000000;
-	margin-top: 7px;
-}
-
-#main-block #main-content #comments-section h3 {
-	font-size: 25px;
-	color: #E6772E;
-}
-
-#main-block #aside {
-	padding: 0px 10px;
-	width: 275px;
-	display: block;
-	float: right;
-	margin-top: 5px;
-}
-
-#main-block #aside h3 {
-	text-align: center;
-	padding-top: 5px;
-	background: #000000;
-	color: #FFFFFF;
-	display: block;
-	vertical-align: top;
-	font-size: 18px;
-	height: 20px;
-}
-
-#main-block #aside #rel-topics {
-	background-color: #FFFFFF;
-	border-color: #000000;
-	border-width: 1px;
-	border: solid;
-}
-
-#main-block #aside #rel-topics li a,
-#main-block #aside #rel-topics li a:visited {
-	text-decoration: none;
-	color: #000000;
-	display: block;
-	padding: 5px;
-	height: 20px;
-	border-top: solid;
-	border-width: 1px;
-	border-color: #000000;
-	font-size: 16px;
-}
-
-
-/*add topic
------------------------*/
-#main-block #add-topic {
-	width: 930px;
-	min-height: 500px;
-	background-color: #FFFFFF;
-	color: #000000;
-	padding: 20px;
-}
-
-#main-block #add-topic h2 {
-	font-size: 35px;
-	color: #E6772E;
-}
-
-#main-block #add-topic input[type="text"] {
-	height: 20px;
-	width: 500px;
-	margin-top: 5px;
-	font-size: 18px;
-}
-
-#main-block #add-topic textarea {
-	margin-top: 10px;
-	width: 500px;
-	font-size: 18px;
-	height: 200px;
-	overflow: auto;
-}
-
-#main-block #add-topic h3 {
-	margin-top: 10px;
-	color: #E6772E;
-	font-size: 22px;
-}
-
-#main-block #add-topic input[type="button"] {
-	height: 25px;
-	width: 175px;
-	font-size: 15px;
-}
-
-#main-block #add-topic input[type="submit"] {
-	width: 200px;
-	height: 30px;
-	font-size: 18px;
-}
-
-
-/*home page: topic-display
------------------------*/
+/*home page: topic-display----------------------------------------------------*/
 #topic-display {
 	width: 970px;
 	min-height: 270px;
-	background-color: #F1F1F1;
+	background-color: #FFFFFF;
 	padding-top: 5px;
 	text-align: center;
 }
-
 #topic-display .topic-entry {
 	background-color: #FFFFFF;
-	border: solid;
-	border-width: 2px;
-	border-color: #000000;
 	padding: 5px;
 	display: block;
 	width: 300px;
 	float: left;
 	text-align: left;
-	margin: 0px 4.5px;
+	margin: 0px 6px;
 	min-height: 250px;
 }
-
 #topic-display .topic-entry a,
 #topic-display .topic-entry a:visited {
 	text-decoration: none;
 	color: #7B1113;
 }
-
 #topic-display .topic-entry a:hover {
 	text-decoration: underline;
 }
-
 #topic-display .topic-entry #topic-title {
 	display: block;
 	padding: 5px 0px;
@@ -403,11 +206,10 @@ nav a:hover {
 	border-bottom: solid;
 	border-color: #000000;
 }
-
 #topic-display .topic-entry #topic-title a h2 {
 	font-size: 1.75em;
+	color: #7B1113;
 }
-
 #topic-display .topic-entry a h3 {
 	font-size: 1.5em;
 	display: block;
@@ -415,23 +217,19 @@ nav a:hover {
 	padding-right: 5px;
 	vertical-align: bottom;
 }
-
 #topic-display .topic-entry p {
 	display: block;
 }
-
 #topic-display .topic-entry #topic-footer {
 	margin-top: 5px;
 	font-size: 13px;
 	color: #454545;
 }
-
 #topic-display .topic-entry #topic-detail {
 	padding-top: 10px;
 	min-height: 80px;
 	overflow: hidden;
 }
-
 #topic-display .topic-entry #q-sign {
 	display: block;
 	float: left;
@@ -441,8 +239,126 @@ nav a:hover {
 	font-style: italic;
 }
 
-/*main footer
------------------------*/
+/*topic list---main content---------------------------------------------------*/
+#main-block .elem-list {
+	float: left;
+	display: block;
+	width: 950px;
+	padding: 0px 20px;
+	background-color: #FFFFFF;
+	color: #000000;
+	margin-top: 10px;
+}
+#main-block .elem-list .topic-item {
+	display: block;
+	width: 890px;
+	padding: 20px;
+	border-top: solid;
+	border-width: 2px;
+	border-color: #000000;
+}
+#main-block .elem-list .topic-item:hover {
+	background-color: #EEEEEE;
+}
+#main-block .elem-list .topic-item p {
+	margin-top: 5px;
+	font-size: 1em;
+	padding: 0px 10px;
+	color: #000000;
+	text-align: justify;
+}
+#main-block .elem-list .topic-item h3 {
+	font-size: 25px;
+	padding: 0px 10px;
+	color: #7B1113;
+}
+#main-block .elem-list .topic-item #questions {
+	margin-top: 5px;
+	font-size: 20px;
+	color: #7B1113;
+}
+#main-block .elem-list .topic-item ul li {
+	margin-left: 30px;
+	color: #7B1113;
+	list-style: disc;
+}
+
+/*log In/Sign Up page---------------------------------------------------------*/
+#main-block #form-content {
+	display: block;
+	float: left;
+	height: 500px;
+	width: 440px;
+	padding: 20px 50px;
+	background-color: #FFFFFF;
+	border: solid 2px #000000;
+	color: #000000;
+}
+#main-block #form-content input[type="text"],
+#main-block #form-content input[type="password"]{
+	height: 30px;
+	width: 330px;
+	margin-top: 10px;
+	font-size: 18px;
+}
+#main-block #form-content select {
+	height: 30px;
+	width: 336px;
+	margin-top: 10px;
+	font-size: 18px;
+}
+#main-block #form-content input[type="submit"] {
+	height: 30px;
+	width: 200px;
+	margin: 50px 135px;
+	font-size: 18px;
+}
+#main-block #statements {
+	display: block;
+	height: 500px;
+	width: 400px;
+	float: right;
+	font-size: 35px;
+	color: #000000;
+	background-color: #FFFFFF;
+}
+#main-block #statements p {
+	text-align: center;
+	margin-top: 250px;
+}
+.error-msg {
+	color: red;
+	font-size: 12px;
+	display: block;
+	float: right;
+	width: 100px;
+	text-align: left;
+	padding-top: 10px;
+}
+.error-login {
+	color: red;
+	font-size: 12px;
+	display: block;
+	text-align: left;
+	position: absolute;
+	padding-top: 15px;
+	margin-left: 2px;
+}
+
+/*FAQ-------------------------------------------------------------------------*/
+#main-block #faq {
+	min-height: 428px;
+	background-color: #FFFFFF;
+	border: solid 2px #000000;
+	color: #000000;
+	padding: 20px;
+	margin-bottom: 5px;
+}
+#main-block #faq p {
+	margin-top: 10px;
+}
+
+/*main footer-----------------------------------------------------------------*/
 footer {
 	background-color: #000000;
 	color: #FFFFFF;

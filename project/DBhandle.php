@@ -22,7 +22,7 @@
 	}
 	function logoutUser(){
 		session_destroy();
-		header('Location: http://localhost/project');
+		header('Location: http://localhost/EnggConnect/project');
 	}
 	function enqueueUser($user, $action){
 		DB::insert('UserQueue', array(
@@ -145,7 +145,7 @@
 		));
 	}
 	function post($a_id, $que_id, $exp){
-		echo $que_id;
+		//echo $que_id;
 		$pawn = DB::queryFirstRow("SELECT * FROM Answers WHERE a_id = %d", $a_id);
 
 	    DB::insert('Posts', array(

@@ -8,7 +8,7 @@
 		$uname = clean_up($_POST["username"]);
 		$pass = clean_up($_POST["password"]);
 		if(loginUser($uname, $pass)!=0){ $err = "Invalid Username or Password"; }
-		else header('Location: http://localhost/project');
+		else header('Location: http://localhost/EnggConnect/project');
 	}
 ?>
 <!DOCTYPE html>
@@ -26,8 +26,8 @@
 			<h2>Log In</h2>
 			<form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 		    <input type="text" name="username" id="username" placeholder="Username" required/></br>
-		    <input type="password" name="password" id="password" placeholder="Password" required/></br>
-				<span><?php echo $err;?></span></br>
+		    <input type="password" name="password" id="password" placeholder="Password" required/>
+			<span class="error-login"><?php echo $err;?></span>
 		    <input type="submit" id="submit" name="login" value="Login">
 		  </form>
 		</div>

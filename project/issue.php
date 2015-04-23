@@ -16,7 +16,7 @@
 			//echo $q_id;
 			$p_ans = clean_up($_POST['answer']);
 			if(!empty($p_ans)){
-				$p_exp = clean_up($_POST['explination']);
+				$p_exp = clean_up($_POST['explanation']);
 				post($p_ans, $q_id, $p_exp);
 				$echos = $_GET['t_id'];
 				//header("Location: https://localhost/project/issue.php?t_id=$echos");
@@ -30,6 +30,7 @@
 	<meta charset="UTF-8">
 	<title><?php echo $issue['title'];?> | Eng'g Connect</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="style_issue.css">
 	<script src="TopicDynamic.js"></script>
 </head>
 <body>
@@ -40,70 +41,74 @@
 			<div id="topic-content">
 				<div id="topic-header">
 					<h2><?php echo $issue['title']; ?></h2>
-					<p>Posted on <?php echo $issue['date_of_post'];?> by <?php echo getUser($issue['poster_id'])['username']?></p>
+					<p>Posted on <?php echo date("m/j/Y", strtotime($issue['date_of_post']));?> by <?php echo getUser($issue['poster_id'])['username']?></p>
 				</div>
 				<div id="topic-details">
 					<p><?php echo $issue['details']?></p>
 				</div>
 			</div>
 			<div id="topic-question">
-				<h3>Questions:</h3>
-					<?php
-						$questions = getQuestions($issue['topic_id']);
-						//$q_row = getQuestion($issue['topic_id']);
-						//if(empty($q_row)) echo "there is no question for this topic";
-						if(!empty($questions)):
-							foreach ($questions as $q_row):
-								echo $q_row['question'];
-					?>
-				<ul class="answers">
-					<?php 
-							$answers = getAnswers($q_row['q_id']);
-								if(!empty($answers)):
-					?>
-							<form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?t_id=<?php echo $_GET['t_id']?>">
-						<?php foreach($answers as $row): ?>
-							<?php echo $row['vote_count']?>
-							<?php if(isset($_SESSION['loggedin']) && !hasUserAnswered($q_row['q_id'])):?><input type="radio" name="answer" value="<?php echo $row['a_id'];?>"><?php endif;?>
-							<?php echo $row['answer'];?> </br>
-						<?php 	endforeach;?>
-						<input type="hidden" name='ans_id' id='ans_id' value='<?php echo $q_row['q_id']?>'>
-						<?php if(isset($_SESSION['loggedin']) && !hasUserAnswered($q_row['q_id'])):?><input type="text" name="explination" placeholder="you may add an explanation"><?php endif;?>
-						<?php if(isset($_SESSION['loggedin']) && !hasUserAnswered($q_row['q_id'])):?><input type="Submit" value="Submit Answer"><?php endif;?>
-						</form>
-				</ul>
-					<?php 
-								endif;
-							endforeach;
-						else: echo "there is no question for this topic";
-						endif;
-					?>
+				<?php
+					$questions = getQuestions($issue['topic_id']);
+					//$q_row = getQuestion($issue['topic_id']);
+					//if(empty($q_row)) echo "there is no question for this topic";
+					if(!empty($questions)):
+						$qnum = 1;
+						foreach ($questions as $q_row):
+				?>
+					<div class="question-item">
+						<p id="question">Question #<?php echo $qnum;?>:</p>
+						<p><?php echo $q_row['question']; ?></p>
+						<ul class="answers">
+							<?php 
+									$answers = getAnswers($q_row['q_id']);
+										if(!empty($answers)):
+							?>
+									<form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?t_id=<?php echo $_GET['t_id']?>">
+								<?php foreach($answers as $row): ?>
+									<p class="vote-cnt"><?php echo $row['vote_count'];?></p>
+									<?php if(isset($_SESSION['loggedin']) && !hasUserAnswered($q_row['q_id'])):?><input type="radio" name="answer" value="<?php echo $row['a_id'];?>" required><?php endif;?>
+									<?php echo $row['answer'];?> </br>
+								<?php 	endforeach;?>
+								<input type="hidden" name='ans_id' id='ans_id' value='<?php echo $q_row['q_id']?>'>
+								<?php if(isset($_SESSION['loggedin']) && !hasUserAnswered($q_row['q_id'])):?><input type="text" name="explanation" placeholder="you may add an explanation"><?php endif;?>
+								<?php if(isset($_SESSION['loggedin']) && !hasUserAnswered($q_row['q_id'])):?><input type="Submit" value="Submit Answer"><?php endif;?>
+								</form>
+							<?php endif;?>
+						</ul>
+					</div>
+				<?php 		$qnum++;
+						endforeach;
+					else: 
+				?>
+					<p id="no-question">There is no question for this topic</p>
+				<?php endif; ?>
 			</div>
 			<div id="comments-section">
 				<h3>Comments:</h3>
-				<ul class="comments">
+				<ul id="comments">
 					<?php 
 						foreach ($questions as $q_row):
 							$posts = getPostsWithComments($q_row['q_id']);
 							foreach($posts as $row): 
 					?>
-						<li>
-							<p><?php echo $row['explanation']?></p>
+						<li class="comment-item">
+							<p id="message"><?php echo $row['explanation']?></p></br>
 							<p id="author">- <?php echo $row['poster_name']?></p>
-							<p id="author-info">answered <?php echo $row['answer_value']?> to <?php echo getQuestion($row['question_id'])['question']; ?></p>
-							<?php if(!hasUserReplied($row['p_id'])):?><input type='button' name='reply' id='rep' value='Reply to this Comment' onclick='addReply(<?php echo $row['p_id'];?>)'><?php endif;?>
-							<form method='POST' id='<?php echo $row['p_id'];?>' action='<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>?t_id=<?php echo $_GET['t_id']?>'>
-							</form>
+							<p id="author-info">answered <i><?php echo $row['answer_value']?></i> to <i><?php echo getQuestion($row['question_id'])['question']; ?></i></p>
 							<ul class="replies_to_<?php echo $row['p_id']?>">
 								<?php
 									$reps = getReplies($row['p_id']); 
 									foreach($reps as $r_row):?>
-								<li>
-									<p><?php echo $r_row['reply']?></p>
-									<p>- <?php echo $r_row['poster_name'];?></p>
+								<li class="reply-item">
+									<p id="message"><?php echo $r_row['reply']?></p>
+									<p id="replier">- <?php echo $r_row['poster_name'];?></p>
 								</li>
 								<?php endforeach;?>
 							</ul>
+							<?php if(isset($_SESSION['loggedin']) && !hasUserReplied($row['p_id'])):?><input type='button' name='reply' id='rep' value='Reply to this Comment' onclick='addReply(<?php echo $row['p_id'];?>)'><?php endif;?>
+							<form method='POST' id='<?php echo $row['p_id'];?>' action='<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>?t_id=<?php echo $_GET['t_id']?>'>
+							</form>
 						</li>
 					<?php
 							endforeach;

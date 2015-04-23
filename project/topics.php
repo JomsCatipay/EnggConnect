@@ -17,30 +17,36 @@
 	<!-- possible search bar here -->
 
 	<div id="main-block">
-	<?php if(sizeof($posts)<1):?>
-	<h2>There are no Topics Yet.</h2>
-	<?php
-		else: 
-			foreach($posts as $row):
-				$que = getQuestions($row['topic_id']);
-	?>
-		<div id="l_<?php echo $row['topic_id']?>">
-			<p> <a href="issue.php?t_id=<?php echo $row['topic_id']?>">
-				<h3><?php echo $row['title']?></h3>
-				<?php echo $row['details']?> </br></br>
-				<?php foreach($que as $que_r) echo $que_r['question']?>
+		<h2>Topics</h2>
+		<div id="main-block">
+			<div class="elem-list">
+			<?php if(sizeof($posts)<1):?>
+			<p>There are no Topics Yet.</p>
+			<?php
+				else: 
+					foreach($posts as $row):
+						$que = getQuestions($row['topic_id']);
+			?>
+				<a href="issue.php?t_id=<?php echo $row['topic_id']?>">
+					<div class="topic-item">
+						<h3><?php echo $row['title']?></h3>
+						<p><?php echo substr($row['details'], 0, 350)?>...</p>
+						<p id="questions">Questions:</p>
+						<ul>
+							<?php foreach($que as $que_r): ?>
+								<li><p><?php echo $que_r['question']; ?></p></li>
+							<?php endforeach; ?>
+						</ul>
+					</div>
 				</a>
-				</br>
-				____________________________________________________________________
-			</p>
+			<?php 
+					endforeach;
+				endif;
+			?>
+			</div>
 		</div>
-	<?php 
-			endforeach;
-		endif;
-	?>
 
-	<?php include "footer.php";?>	
+		<?php include "footer.php";?>	
 	</div>
-
 </body>
 </html>

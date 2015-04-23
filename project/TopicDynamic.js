@@ -3,11 +3,10 @@ function addReply(post_id){
 	newdiv.id = "reply";
 
 	var out = "";
-	out = out + "<input type='text' name='replyText' placeholder='Reply...'>";
+	out = out + "<input type='text' name='replyText' placeholder='Type your reply here...' required/>";
 	out = out + "<input type='hidden' name='reply_id' value="+post_id+" >";
 	out = out + "<input type=\"Submit\" name='replyGo' value=\"Submit Reply\">";
 
 	newdiv.innerHTML = out;
-	
 	document.getElementById(post_id).appendChild(newdiv);
 }

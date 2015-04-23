@@ -1,0 +1,114 @@
+
+/*add topic-------------------------------------------------------------------*/
+#main-block #add-topic {
+	width: 926px;
+	min-height: 500px;
+	background-color: #FFFFFF;
+	border: solid 2px #000000;
+	color: #000000;
+	padding: 20px;
+}
+#main-block #add-topic input[type="text"] {
+	height: 20px;
+	width: 500px;
+	margin-top: 5px;
+	font-size: 18px;
+	font-family: sans-serif;
+}
+#main-block #add-topic textarea {
+	margin-top: 10px;
+	width: 500px;
+	font-size: 18px;
+	font-family: sans-serif;
+	height: 200px;
+	overflow: auto;
+}
+#main-block #add-topic h3{
+	margin-top: 10px;
+	color: #F78F1E;
+	font-size: 22px;
+}
+#main-block #add-topic input[type="button"] {
+	height: 25px;
+	width: 175px;
+	font-size: 15px;
+	margin-right: 10px;
+}
+#main-block #add-topic input[type="submit"] {
+	width: 200px;
+	height: 30px;
+	font-size: 18px;
+}
+#main-block #add-topic #question-commands {
+	display: block;
+	margin-top: 10px;
+	padding: 10px;
+	padding-right: 0px;
+	border: solid 1px #000000;
+	background-color: #1F1F1F;
+	width: 375px;
+}
+.answer-commands {
+	display: block;
+	margin-top: 10px;
+	padding: 10px;
+	padding-right: 0px;
+	border: solid 1px #000000;
+	background-color: #1F1F1F;
+	width: 375px;
+}
+
+/*users-----------------------------------------------------------------------*/
+.withwrap {
+	min-height: 500px;
+}
+#main-block #requests, #main-block #userlist {
+	width: 946px;
+	background-color: #FFFFFF;
+	border: solid 2px #000000;
+	color: #000000;
+	padding: 10px;
+	margin-bottom: 10px;
+}
+#main-block #userlist {
+	min-height: 365px;
+}
+#main-block #requests #user,
+#main-block #userlist #user {
+	display: block;
+	min-height: 40px;
+	padding: 10px 10px 10px 0px;
+	border-top: solid 1px #000000;
+}
+#main-block #requests #user:hover,
+#main-block #userlist #user:hover {
+	background-color: #EEEEEE;
+}
+#main-block #requests #user #uname,
+#main-block #userlist #user #uname {
+	display: inline-block;
+	padding: 5px 5px 5px 10px;
+	font-size: 25px;
+	color: #7B1113;
+	float: left;
+	min-width: 150px;
+	margin-right: 20px;
+}
+#main-block #requests #user #snum,
+#main-block #requests #user #dept,
+#main-block #requests #user #vote-count,
+#main-block #userlist #user #snum,
+#main-block #userlist #user #dept {
+	display: inline-block;
+	font-size: 20px;
+	color: #000000;
+	float: left;
+	padding: 10px;
+	min-width: 50px;
+}
+#main-block #requests #user input[type="submit"],
+#main-block #userlist #user input[type="submit"] {
+	float: right;
+	font-size: 16px;
+	margin-top: 10px;
+}

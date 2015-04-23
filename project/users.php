@@ -1,5 +1,5 @@
 <?php
-	if(isset($_SESSION['loggedin'])) header('Location: http://localhost/project/login.php');
+	if(isset($_SESSION['loggedin'])) header('Location: http://localhost/EnggConnect/project/login.php');
 	require_once 'DBhandle.php';
 
 	if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -22,62 +22,63 @@
 	<meta charset="UTF-8">
 	<title>Users | Eng'g Connect</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="style-manage.css">
 </head>
 <body>
 	<?php include "header.php";?>
 
 	<!-- queue -->
 	<div id="main-block">
-	<h2>Upgrade/Downgrade Requests for Approval</h2>
-	<?php foreach($queue as $que): 
-		$row = getUser($que['u_id']);
-	?>
-		<div id="u_<?php echo $row['user_id']?>">
-			<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-				<p> <h3><?php echo $row['username']?></h3>
-					<?php if(isset($row['snum'])) echo $row['snum']?></br>
-					<?php echo $row['dept']?>
-					<input type="hidden" name="id" value="<?php echo $que['u_id'];?>">
-					<?php if(!hasVoted($que['u_id'])): ?>
-						</br>
-					<?php 	if($row['type']=='Administrator'):?>
-						<input type="submit" name="confirm" value="Confirm Degrade"></input>
-					<?php 	else:?>
-						<input type="submit" name="confirm" value="Confirm Upgrade"></input>
-					<?php 
-						endif;
+		<div id="requests">
+			<h2 style="margin-bottom: 10px">Upgrade/Downgrade Requests for Approval</h2>
+			<?php
+				$temp = 0; 
+				foreach($queue as $que): 
+				$row = getUser($que['u_id']);
+			?>
+				<div id="user">
+					<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+						<p id="uname"><?php echo $row['username']?></p>
+						<p id="snum"><?php if(isset($row['snum'])) echo $row['snum']?></p>
+						<p id="dept"><?php echo $row['dept']?></p>
+						<input type="hidden" name="id" value="<?php echo $que['u_id'];?>">
+						<p id="vote-count">Vote Count: <?php echo $que['vote_count'] ?></p>
+						<?php if(!hasVoted($que['u_id'])): ?>
+							<?php if($row['type']=='Administrator'):?>
+								<input type="submit" name="confirm" value="Confirm Degrade"></input>
+							<?php 	else:?>
+								<input type="submit" name="confirm" value="Confirm Upgrade"></input>
+						<?php 
+								endif;
 							endif;
-					?>
-					</br>Vote Count: <?php echo $que['vote_count'] ?></br>
-					____________________________________________________________________
-				</p>
-			</form>
+						?>
+					</form>
+				</div>
+			<?php endforeach;?>
 		</div>
-	<?php endforeach;?>
 
 	<!-- others -->
-	</br></br>
-	<h2>Users not in Queue</h2>
-	<?php foreach($users as $row): ?>
-		<div id="u_<?php echo $row['user_id']?>">
-			<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-				<p> <h3><?php echo $row['username']?></h3>
-					<?php if(isset($row['snum'])) echo $row['snum']?></br>
-					<?php echo $row['dept']?></br>
-					<input type="hidden" name="type" value="<?php echo $row['type'];?>">
-					<input type="hidden" name="id" value="<?php echo $row['user_id'];?>">
-					<?php if($row['type']=='Administrator'):?>
-						<input type="submit" name="enqueue" value="Degrade Account"></input>
-					<?php else:?>
-						<input type="submit" name="enqueue" value="Upgrade Account"></input>
-					<?php endif;?></br>
-					____________________________________________________________________
-				</p>
-			</form>
+		<div id="userlist">
+			<h2 style="margin-bottom: 10px">Users not in Queue</h2>
+			<?php foreach($users as $row): ?>
+				<div id="user">
+					<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+						<p id="uname"><?php echo $row['username']?></p>
+						<p id="snum"><?php if(isset($row['snum'])) echo $row['snum']?></p>
+						<p id="dept"><?php echo $row['dept']?></p>
+						<input type="hidden" name="type" value="<?php echo $row['type'];?>">
+						<input type="hidden" name="id" value="<?php echo $row['user_id'];?>">
+						<?php if($row['type']=='Administrator'):?>
+							<input type="submit" name="enqueue" value="Degrade Account"></input>
+						<?php else:?>
+							<input type="submit" name="enqueue" value="Upgrade Account"></input>
+						<?php endif;?>
+					</form>
+				</div>
+			<?php endforeach;?>
 		</div>
-	<?php endforeach;?>
-
-	<?php include "footer.php";?>	
+		
+		<?php include "footer.php";?>	
 	</div>
 </body>
 </html>

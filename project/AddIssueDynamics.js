@@ -37,6 +37,7 @@ function addQuestion(){
 	var out = "<input name='questions[]' type='text' size='39' placeholder='Question'>";
 	out = out + "<h4>Answers:</h4> <div id='answers"+queCount+"'>";
 	out = out + "<input type='text' size='50' name='answers"+queCount+"[]' placeholder='Answer'></br>";
+	out = out + "<input type='text' size='50' name='answers"+queCount+"[]' placeholder='Answer'></br>";
 	out = out + "</div>";
 	out = out + "<input type='button' name='add_answer' id='addAnswerButton' value='Add an Answer' onclick='addAnswer("+queCount+")'>"
 	out = out + "<input type='button' name='del_answer' id='delAnswerButton' value='Delete last Answer' onclick='delAnswer("+queCount+")'>";
@@ -52,7 +53,7 @@ function addQuestion(){
 */
 	newdiv.innerHTML = out;
 	document.getElementById("questions").appendChild(newdiv);
-	ansCount.push(1);
+	ansCount.push(2);
 	//window.alert(ansCount);
 }
 

@@ -11,12 +11,24 @@
 			//echo "reply ".$reply." to ".$reply_rec;
 			reply($reply,$reply_rec);
 		}
+		else if(!empty($_POST['reportPost'])){
+			$id = $_POST['post_id'];
+			reportPost($id);
+			//$post = getPost($id);
+			//echo "reported ".$post['explanation'];
+		}
+		else if(!empty($_POST['reportReply'])){
+			$id = $_POST['reply_id'];
+			reportReply($id);
+			//$post = getReply($id);
+			//echo "reported ".$post['reply'];
+		}
 		else{	
 			$q_id = clean_up($_POST['ans_id']);
 			//echo $q_id;
 			$p_ans = clean_up($_POST['answer']);
 			if(!empty($p_ans)){
-				$p_exp = clean_up($_POST['explanation']);
+				$p_exp = clean_up($_POST['explination']);
 				post($p_ans, $q_id, $p_exp);
 				$echos = $_GET['t_id'];
 				//header("Location: https://localhost/project/issue.php?t_id=$echos");
@@ -94,8 +106,16 @@
 					?>
 						<li class="comment-item">
 							<p id="message"><?php echo $row['explanation']?></p></br>
-							<p id="author">- <?php echo $row['poster_name']?></p>
-							<p id="author-info">answered <i><?php echo $row['answer_value']?></i> to <i><?php echo getQuestion($row['question_id'])['question']; ?></i></p>
+							<p id="author">- <?php echo getUser($row['poster_id'])['username']?></p>
+							<p id="author-info">answered <i><?php echo getAnswer($row['answer_id'])['answer']?></i> to <i><?php echo getQuestion($row['question_id'])['question']; ?></i></p>
+							<?php if(isset($_SESSION['loggedin']) && !postHasReport($row['p_id'])):?>
+							<form method='POST' id='rp<?php echo $row['p_id'];?>' action='<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>?t_id=<?php echo $_GET['t_id']?>'>
+								<input type='hidden' name='post_id' value='<?php echo $row['p_id'];?>'>
+								<input type='submit' name="reportPost" value='Report Post'>
+							</form>
+							<?php else:?>
+							<p>Post has been reported</p>
+							<?php endif;?>
 							<ul class="replies_to_<?php echo $row['p_id']?>">
 								<?php
 									$reps = getReplies($row['p_id']); 
@@ -103,6 +123,14 @@
 								<li class="reply-item">
 									<p id="message"><?php echo $r_row['reply']?></p>
 									<p id="replier">- <?php echo $r_row['poster_name'];?></p>
+									<?php if(isset($_SESSION['loggedin']) && !replyHasReport($r_row['r_id'])):?>
+									<form method='POST' id='rc<?php echo $r_row['r_id'];?>' action='<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>?t_id=<?php echo $_GET['t_id']?>'>
+										<input type='hidden' name='reply_id' value='<?php echo $r_row['r_id'];?>'>
+										<input type='submit' name="reportReply" value='Report Comment'>
+									</form>
+									<?php else:?>
+									<p>Reply has been reported</p>
+									<?php endif;?>
 								</li>
 								<?php endforeach;?>
 							</ul>

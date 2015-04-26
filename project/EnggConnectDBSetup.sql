@@ -1,4 +1,4 @@
-CREATE DATABASE enggconnecttest;
+CREATE DATABASE IF NOT EXISTS enggconnecttest;
 
 USE enggconnecttest;
 
@@ -53,14 +53,17 @@ CREATE TABLE IF NOT EXISTS Answers(
 
 CREATE TABLE IF NOT EXISTS Posts(
 	p_id integer auto_increment NOT NULL,
-	poster_name varchar(30),
-	answer_value varchar(255),
+	poster_id integer,
+	answer_id integer,
 	question_id integer,
 	date_of_post TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	explanation TEXT,
 
-	foreign key (poster_name) references Users(username)
+	foreign key (poster_id) references Users(user_id)
 		on delete set null
+		on update cascade,
+	foreign key (answer_id) references Answers(a_id)
+		on delete cascade
 		on update cascade,
 	foreign key (question_id) references Questions(q_id) 
 		on delete cascade 
@@ -82,6 +85,37 @@ CREATE TABLE IF NOT EXISTS Replies(
 		on delete cascade
 		on update cascade,
     primary key(r_id)
+);
+
+CREATE TABLE IF NOT EXISTS ReportedPosts(
+	rep_id integer auto_increment NOT NULL,
+	post_id integer,
+	reporter_id integer,
+	date_of_post TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+	foreign key (post_id) references Posts(p_id)
+		on delete cascade
+		on update cascade,
+	foreign key (reporter_id) references Users(user_id)
+		on delete set null
+		on update cascade,
+	primary key(rep_id)
+);
+
+
+CREATE TABLE IF NOT EXISTS ReportedReplies(
+	rep_id integer auto_increment NOT NULL,
+	reply_id integer,
+	reporter_id integer,
+	date_of_post TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+	foreign key (reply_id) references Replies(r_id)
+		on delete cascade
+		on update cascade,
+	foreign key (reporter_id) references Users(user_id)
+		on delete set null
+		on update cascade,
+	primary key(rep_id)
 );
 
 CREATE TABLE IF NOT EXISTS UserQueue(

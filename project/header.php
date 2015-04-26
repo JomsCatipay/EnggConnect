@@ -11,10 +11,12 @@
 	<nav>
 	<ul>
 		<?php if(isset($_SESSION['loggedin']) && $_SESSION['loggedUser']['type']=='Administrator'): ?>
-		<li><a href="users.php">Manage</a> |
+		<li><a href="index.php">Manage</a> |
 			<ul>
 				<li><a href="add_topic.php">Add</a></li>
 				<li><a href="users.php">Users</a></li>
+				<li><a href="reports.php">Reports</a></li>
+				<li><a href="statistics.php">Stats</a></li>
 			</ul>
 		</li>
 		<?php endif; ?>

@@ -37,6 +37,7 @@
 								<li><p><?php echo $que_r['question']; ?></p></li>
 							<?php endforeach; ?>
 						</ul>
+						
 					</div>
 				</a>
 			<?php 

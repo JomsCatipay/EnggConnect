@@ -28,7 +28,7 @@
 			//echo $q_id;
 			$p_ans = clean_up($_POST['answer']);
 			if(!empty($p_ans)){
-				$p_exp = clean_up($_POST['explination']);
+				$p_exp = clean_up($_POST['explanation']);
 				post($p_ans, $q_id, $p_exp);
 				$echos = $_GET['t_id'];
 				//header("Location: https://localhost/project/issue.php?t_id=$echos");
@@ -134,7 +134,9 @@
 								</li>
 								<?php endforeach;?>
 							</ul>
-							<?php if(isset($_SESSION['loggedin']) && !hasUserReplied($row['p_id'])):?><input type='button' name='reply' id='rep' value='Reply to this Comment' onclick='addReply(<?php echo $row['p_id'];?>)'><?php endif;?>
+							<div id="reply_button">
+								<?php if(isset($_SESSION['loggedin']) && !hasUserReplied($row['p_id'])):?><input type='button' name='reply' id='rep<?php echo $row['p_id'];?>' value='Reply to this Comment' onclick="addReply(<?php echo $row['p_id'];?>); getElementById('reply_button').style.display = 'block'; this.style.display = 'none';"><?php endif;?>
+							</div>
 							<form method='POST' id='<?php echo $row['p_id'];?>' action='<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>?t_id=<?php echo $_GET['t_id']?>'>
 							</form>
 						</li>

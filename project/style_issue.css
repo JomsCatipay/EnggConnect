@@ -29,8 +29,8 @@
 	text-align: left;
 }
 #main-block #main-content #topic-content #topic-header h2 {
-	font-size: 35px;
-	color: #F78F1E;
+	font-size: 30px;
+	color: #ED4732;
 }
 #main-block #main-content #topic-content #topic-header p {
 	font-size: 15px;
@@ -66,11 +66,11 @@
 	margin-bottom: 5px;
 }
 #main-block #main-content #topic-question .question-item #question {
-	font-size: 30px;
-	color: #F78F1E;
+	font-size: 25px;
+	color: #ED4732;
 }
 #main-block #main-content #topic-question .question-item p {
-	font-size: 25px;
+	font-size: 18px;
 	color: #FFFFFF;
 	margin-bottom: 5px;
 }
@@ -83,7 +83,7 @@
 #main-block #main-content #topic-question .question-item .answers .vote-cnt {
 	display: inline-block;
 	font-size: 18px;
-	color: #FFFFFF;
+	color: #4EB1BA;
 	text-align: center;
 	width: 50px;
 	margin-right: 5px;
@@ -98,7 +98,7 @@
 /*Comments--------------------------------------------------------------------*/
 #main-block #main-content #comments-section h3 {
 	font-size: 25px;
-	color: #F78F1E;
+	color: #ED4732;
 	display: block;
 	padding: 5px 0px;
 	border-top: solid 1px #000000;
@@ -107,7 +107,9 @@
 }
 #main-block #main-content #comments-section #comments .comment-item {
 	display: block;
-	background-color: #F1F1F1;
+	float: left;
+	width: 630px;
+	background-color: #F8F8F8;
 	border: solid 1px #CCCCCC;
 	padding: 10px;
 	color: #000000;
@@ -131,9 +133,32 @@
 	color: #999999;
 	text-align: right;
 }
+#main-block #main-content #comments-section ul li input[type="button"]{
+	float: left;
+}
+#main-block #main-content #comments-section ul li #report-button1 {
+	display: block;
+	float: right;
+	background-color: transparent;
+	background: url(images/report-flag-gray.png) 0px 0px/20px 20px;
+	background-repeat: no-repeat;
+	cursor: pointer;
+	border: none;
+	width: 20px;
+	height: 20px;
+	color: transparent;
+}
+#main-block #main-content #comments-section ul li .replyForm {
+	float: left;
+}
+#main-block #main-content #comments-section ul li form input[type="text"] {
+	width: 450px;
+}
 #main-block #main-content #comments-section ul li ul {
 	display: block;
+	float: none;
 	margin-left: 50px;
+	margin-top: 10px;
 }
 #main-block #main-content #comments-section ul li ul li {
 	display: block;
@@ -141,25 +166,42 @@
 	padding: 5px 0px;
 	min-height: 20px;
 }
-#main-block #main-content #comments-section ul li ul {
-	margin-top: 10px;
-}
 #main-block #main-content #comments-section ul li ul li #replier {
 	display: block;
 	float: left;
-	margin-left: 10px;
+	margin: 0px 10px;
 	font-size: 15px;
-}
-#main-block #main-content #comments-section ul li ul li #replier {
 	color: #444444;
 }
-#main-block #main-content #comments-section ul li form {
-	display: block;
-	float: right;
+#main-block #main-content #comments-section ul li ul li #report-button2 {
+	float: left;
+	background-color: transparent;
+	background: url(images/report-flag-gray.png) 0px 0px/20px 20px;
+	background-repeat: no-repeat;
+	cursor: pointer;
+	border: none;
+	width: 20px;
+	height: 20px;
+	color: transparent;
+	visibility: hidden;
 }
-#main-block #main-content #comments-section ul li input[type="text"] {
-	width: 350px;
-	margin-right: 5px;
+#main-block #main-content #comments-section ul li ul li:hover #report-button2 {
+	visibility: visible;
+}
+#main-block #main-content #comments-section ul li #report-button1:hover,
+#main-block #main-content #comments-section ul li ul li #report-button2:hover {
+	background-color: transparent;
+	background: url(images/report-flag-dark.png) 0px 0px/20px 20px;
+	background-repeat: no-repeat;
+}
+#main-block #main-content #comments-section ul li img {
+	display: block;
+	float: left;
+	height: 20px;
+	visibility: visible;
+}
+#main-block #main-content #comments-section ul li #report-flag1 {
+	float: right;
 }
 
 /*aside-----------------------------------------------------------------------*/

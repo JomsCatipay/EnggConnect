@@ -1,5 +1,6 @@
 <?php 
 	require_once 'DBhandle.php';
+	if(isset($_SESSION['loggedin'])) header('Location: http://localhost/project/index.php');
 
 	$clearedFlag = 0;
 	$err = $uname = $pass = "";
@@ -8,7 +9,7 @@
 		$uname = clean_up($_POST["username"]);
 		$pass = clean_up($_POST["password"]);
 		if(loginUser($uname, $pass)!=0){ $err = "Invalid Username or Password"; }
-		else header('Location: http://localhost/EnggConnect/project');
+		else header('Location: http://localhost/project');
 	}
 ?>
 <!DOCTYPE html>

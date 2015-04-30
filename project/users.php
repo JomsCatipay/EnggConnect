@@ -1,6 +1,7 @@
 <?php
-	if(isset($_SESSION['loggedin'])) header('Location: http://localhost/EnggConnect/project/login.php');
 	require_once 'DBhandle.php';
+	if(!isset($_SESSION['loggedin'])) header('Location: http://localhost/project/login.php');
+	if($_SESSION['loggedUser']['type']=='Contributor') header('Location: http://localhost/project/index.php');
 
 	if($_SERVER["REQUEST_METHOD"] == "POST"){
 		if(!empty($_POST['enqueue'])){
@@ -45,9 +46,9 @@
 						<p id="vote-count">Vote Count: <?php echo $que['vote_count'] ?></p>
 						<?php if(!hasVoted($que['u_id'])): ?>
 							<?php if($row['type']=='Administrator'):?>
-								<input type="submit" name="confirm" value="Confirm Degrade"></input>
-							<?php 	else:?>
-								<input type="submit" name="confirm" value="Confirm Upgrade"></input>
+								<input type="submit" name="confirm" value="Confirm Degrade" <?php if($row['user_id']==$_SESSION['loggedUser']['user_id']) echo 'disabled';?> />
+							<?php else:?>
+								<input type="submit" name="confirm" value="Confirm Upgrade" />
 						<?php 
 								endif;
 							endif;

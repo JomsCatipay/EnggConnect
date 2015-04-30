@@ -5,6 +5,7 @@
 	//$question = getQuestion($issue['topic_id']);
 
 	if($_SERVER["REQUEST_METHOD"] == "POST"){
+		
 		if(!empty($_POST['replyGo'])){
 			$reply = clean_up($_POST['replyText']);
 			$reply_rec = $_POST['reply_id'];
@@ -76,15 +77,15 @@
 									$answers = getAnswers($q_row['q_id']);
 										if(!empty($answers)):
 							?>
-									<form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?t_id=<?php echo $_GET['t_id']?>">
-								<?php foreach($answers as $row): ?>
-									<p class="vote-cnt"><?php echo $row['vote_count'];?></p>
-									<?php if(isset($_SESSION['loggedin']) && !hasUserAnswered($q_row['q_id'])):?><input type="radio" name="answer" value="<?php echo $row['a_id'];?>" required><?php endif;?>
-									<?php echo $row['answer'];?> </br>
-								<?php 	endforeach;?>
-								<input type="hidden" name='ans_id' id='ans_id' value='<?php echo $q_row['q_id']?>'>
-								<?php if(isset($_SESSION['loggedin']) && !hasUserAnswered($q_row['q_id'])):?><input type="text" name="explanation" placeholder="you may add an explanation"><?php endif;?>
-								<?php if(isset($_SESSION['loggedin']) && !hasUserAnswered($q_row['q_id'])):?><input type="Submit" value="Submit Answer"><?php endif;?>
+								<form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?t_id=<?php echo $_GET['t_id']?>">
+									<?php foreach($answers as $row): ?>
+										<p class="vote-cnt"><?php echo $row['vote_count'];?></p>
+										<?php if(isset($_SESSION['loggedin']) && !hasUserAnswered($q_row['q_id'])):?><input type="radio" name="answer" value="<?php echo $row['a_id'];?>" required><?php endif;?>
+										<?php echo $row['answer'];?> </br>
+									<?php 	endforeach;?>
+									<input type="hidden" name='ans_id' id='ans_id' value='<?php echo $q_row['q_id']?>'>
+									<?php if(isset($_SESSION['loggedin']) && !hasUserAnswered($q_row['q_id'])):?><input type="text" name="explanation" placeholder="Add an explanation (optional)"><?php endif;?>
+									<?php if(isset($_SESSION['loggedin']) && !hasUserAnswered($q_row['q_id'])):?><input type="Submit" value="Submit Answer"><?php endif;?>
 								</form>
 							<?php endif;?>
 						</ul>
@@ -108,14 +109,6 @@
 							<p id="message"><?php echo $row['explanation']?></p></br>
 							<p id="author">- <?php echo getUser($row['poster_id'])['username']?></p>
 							<p id="author-info">answered <i><?php echo getAnswer($row['answer_id'])['answer']?></i> to <i><?php echo getQuestion($row['question_id'])['question']; ?></i></p>
-							<?php if(isset($_SESSION['loggedin']) && !postHasReport($row['p_id'])):?>
-							<form method='POST' id='rp<?php echo $row['p_id'];?>' action='<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>?t_id=<?php echo $_GET['t_id']?>'>
-								<input type='hidden' name='post_id' value='<?php echo $row['p_id'];?>'>
-								<input type='submit' name="reportPost" value='Report Post'>
-							</form>
-							<?php else:?>
-							<p>Post has been reported</p>
-							<?php endif;?>
 							<ul class="replies_to_<?php echo $row['p_id']?>">
 								<?php
 									$reps = getReplies($row['p_id']); 
@@ -125,20 +118,30 @@
 									<p id="replier">- <?php echo $r_row['poster_name'];?></p>
 									<?php if(isset($_SESSION['loggedin']) && !replyHasReport($r_row['r_id'])):?>
 									<form method='POST' id='rc<?php echo $r_row['r_id'];?>' action='<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>?t_id=<?php echo $_GET['t_id']?>'>
-										<input type='hidden' name='reply_id' value='<?php echo $r_row['r_id'];?>'>
-										<input type='submit' name="reportReply" value='Report Comment'>
+										<input type='hidden' name='reply_id' value='<?php echo $r_row['r_id'];?>' />
+										<input type='submit' name="reportReply" value='Report Reply' id="report-button2" title="Report this reply" />
 									</form>
-									<?php else:?>
-									<p>Reply has been reported</p>
+									<?php elseif(replyHasReport($r_row['r_id'])):?>
+									<img id="report-flag2" src="images/report-flag-red.png" title="This reply has been reported." />
 									<?php endif;?>
 								</li>
 								<?php endforeach;?>
 							</ul>
-							<div id="reply_button">
-								<?php if(isset($_SESSION['loggedin']) && !hasUserReplied($row['p_id'])):?><input type='button' name='reply' id='rep<?php echo $row['p_id'];?>' value='Reply to this Comment' onclick="addReply(<?php echo $row['p_id'];?>); getElementById('reply_button').style.display = 'block'; this.style.display = 'none';"><?php endif;?>
-							</div>
-							<form method='POST' id='<?php echo $row['p_id'];?>' action='<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>?t_id=<?php echo $_GET['t_id']?>'>
+							<?php if(isset($_SESSION['loggedin']) && !hasUserReplied($row['p_id'])):?>
+								<input type='button' name='reply' id='reply-button<?php echo $row['p_id'];?>' value='Reply' onclick='addReply(<?php echo $row['p_id'];?>); document.getElementById("reply-button<?php echo $row['p_id'];?>").style.display="none";' />
+							<?php endif;?>
+							
+							<form method='POST' id='<?php echo $row['p_id'];?>' class="replyForm" action='<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>?t_id=<?php echo $_GET['t_id']?>'>
 							</form>
+							
+							<?php if(isset($_SESSION['loggedin']) && !postHasReport($row['p_id'])):?>
+							<form method='POST' id='rp<?php echo $row['p_id'];?>' action='<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>?t_id=<?php echo $_GET['t_id']?>'>
+								<input type='hidden' name='post_id' value='<?php echo $row['p_id'];?>' />
+								<input type='submit' name="reportPost" value='Report Comment' id="report-button1" title="Report this comment" />
+							</form>
+							<?php elseif(postHasReport($row['p_id'])):?>
+							<img id="report-flag1" src="images/report-flag-red.png" title="This comment has been reported." />
+							<?php endif;?>
 						</li>
 					<?php
 							endforeach;
@@ -148,16 +151,20 @@
 			</div>
 		</div>
 		<div id="aside">
-			<h3>Related Topics</h3>
+			<h3>Other Topics</h3>
 			<ul id="rel-topics">
 				<?php
 					$topics = getManyTopics(6);
 					foreach($topics as $row):
+						if($row['topic_id']!=$issue['topic_id']):
 				?>
-				<li>
-					<a href="issue.php?t_id=<?php echo $row['topic_id']?>"><?php echo $row['title']?></a>
-				</li>
-			<?php endforeach; ?>
+					<li>
+						<a href="issue.php?t_id=<?php echo $row['topic_id']?>"><?php echo $row['title']?></a>
+					</li>
+				<?php 
+						endif;
+					endforeach; 
+				?>
 			</ul>
 		</div>
 		<?php include 'footer.php';?>

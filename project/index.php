@@ -39,10 +39,12 @@
 						$iter = 1;
 						foreach($que as $que_r):
 					?>
+					<div id="topic-que">
 						<p id="q-sign">Q<?php echo $iter?>:</p>
 						<a href="issue.php?t_id=<?php echo $row['topic_id']?>">
-							<h3><?php echo $que_r['question']?></h3>
+							<p id="q-text"><?php echo $que_r['question']?></p>
 						</a>
+					</div>
 					<?php 
 						$iter++;
 						endforeach;

@@ -19,8 +19,16 @@ ul {
 }
 body {
 	background-color: #FFFFFF;
-	font-family: sans-serif;
+	font-family: Helvetica, Arial, sans-serif;
 	font-size: 100%;
+}
+h1, h2 {
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font-style: normal;
+}
+::selection {
+	background-color: #A8CC28;
+	color: #FFFFFF;
 }
 
 /*topbar---------------------------------------------------------------------*/
@@ -56,14 +64,14 @@ body {
 }
 #topbar a:hover {
 	color: #FFFFFF;
-	background-color: #F78F1E;
+	background-color: #ED4732;
 	text-decoration: underline;
 }
 
 /*main header-----------------------------------------------------------------*/
 header {
-	background-color: #7B1113;
-	color: #FFFFFF;
+	background-color: #C7E9EA;
+	color: #000000;
 	font-size: 25px;
 	text-align: left;
 	width: 964px;
@@ -75,15 +83,15 @@ header h1 a, header h1 a:visited {
 	text-decoration: none;
 	font-size: 2em;
 	margin-left: 25px;
-	color: #FFFFFF;
+	color: #000000;
 	display: block;
 	float: left;
 }
 header h1 img {
-	position: absolute;
-	margin-top: -45px;
-	height: 200px;
-	width: auto;
+	margin-top: 5px;
+	height: 102px;
+	display: inline-block;
+	float: left;
 }
 nav ul {
 	margin-top: 77px;
@@ -98,40 +106,43 @@ nav ul li a {
 	background-color: #FFFFFF;
 	width: 90px;
 	height: 26px;
+	border: solid 1px #FFFFFF;
 	padding-top: 2px;
-	color: #7B1113;
+	color: #4EB1BA;
 	font-size: 22px;
 	text-decoration: none;
 	text-align: center;
 }
 nav ul li a:hover {
-	background-color: #7B1113;
+	background-color: #4EB1BA;
 	color: #FFFFFF;
 	border: solid;
 	border-width: 1px;
 	border-color: #FFFFFF;
-	width: 88px;
-	height: 26px;
 }
 nav ul li ul {
 	position: absolute;
-	background-color: #FFFFFF;
-	margin: 0px;
 	visibility: hidden;
+	display: block;
+	background-color: #C7E9EA;
+	width: 114px;
+	margin: 0px;
 }
 nav ul li ul li {
 	display: block;
 	border: solid;
 	border-width: 1px;
-	border-color: #7B1113;
-	width: 88px;
+	border-color: #C7E9EA;
+	width: 110px;
 }
 nav ul li ul li a {
-	width: 88px;
+	display: block;
+	height: 20px;
+	width: 110px;
+	font-size: 17px;
 }
 nav ul li ul li a:hover {
 	display: block;
-	width: 86px;
 }
 nav ul li:hover ul {
 	visibility: visible;
@@ -145,7 +156,7 @@ nav ul li:hover ul {
 }
 #main-block h2 {
 	font-size: 30px;
-	color: #F78F1E;
+	color: #ED4732;
 }
 
 /*home page---description-----------------------------------------------------*/
@@ -169,14 +180,14 @@ nav ul li:hover ul {
 	padding-top: 35px;
 	color: #000000;
 	border-bottom: solid;
-	border-color: #F78F1E;
+	border-color: #4EB1BA;
 	border-width: 2px;
 }
 
 /*home page: topic-display----------------------------------------------------*/
 #topic-display {
 	width: 970px;
-	min-height: 270px;
+	min-height: 268px;
 	background-color: #FFFFFF;
 	padding-top: 5px;
 	text-align: center;
@@ -194,7 +205,7 @@ nav ul li:hover ul {
 #topic-display .topic-entry a,
 #topic-display .topic-entry a:visited {
 	text-decoration: none;
-	color: #7B1113;
+	color: #ED4732;
 }
 #topic-display .topic-entry a:hover {
 	text-decoration: underline;
@@ -208,17 +219,11 @@ nav ul li:hover ul {
 }
 #topic-display .topic-entry #topic-title a h2 {
 	font-size: 1.75em;
-	color: #7B1113;
-}
-#topic-display .topic-entry a h3 {
-	font-size: 1.5em;
-	display: block;
-	padding-top: 15px;
-	padding-right: 5px;
-	vertical-align: bottom;
+	color: #ED4732;
 }
 #topic-display .topic-entry p {
 	display: block;
+	text-align: justify;
 }
 #topic-display .topic-entry #topic-footer {
 	margin-top: 5px;
@@ -228,58 +233,78 @@ nav ul li:hover ul {
 #topic-display .topic-entry #topic-detail {
 	padding-top: 10px;
 	min-height: 80px;
-	overflow: hidden;
 }
-#topic-display .topic-entry #q-sign {
+#topic-display .topic-entry #topic-que {
 	display: block;
 	float: left;
-	font-size: 50px;
+}
+#topic-display .topic-entry #topic-que #q-sign {
+	display: block;
+	float: left;
+	font-size: 40px;
 	padding: 5px 10px;
 	font-weight: bolder;
 	font-style: italic;
 }
+#topic-display .topic-entry #topic-que a #q-text {
+	display: block;
+	float: right;
+	width: 210px;
+	margin-top: 15px;
+	text-align: left;
+	font-size: 25px;
+}
 
 /*topic list---main content---------------------------------------------------*/
-#main-block .elem-list {
+#main-block #topics {
+	display: block;
+	float: left;
+	background-color: #FFFFFF;
+	border: solid 2px #000000;
+	color: #000000;
+	padding: 20px;
+	margin-bottom: 5px;
+	min-height: 428px;
+	width: 926px;
+}
+#main-block #topics .elem-list {
 	float: left;
 	display: block;
-	width: 950px;
-	padding: 0px 20px;
+	width: 926px;
 	background-color: #FFFFFF;
 	color: #000000;
-	margin-top: 10px;
 }
-#main-block .elem-list .topic-item {
+#main-block #topics .elem-list .topic-item {
 	display: block;
-	width: 890px;
-	padding: 20px;
+	width: 870px;
+	padding: 10px 20px;
 	border-top: solid;
-	border-width: 2px;
+	border-width: 1px;
 	border-color: #000000;
 }
-#main-block .elem-list .topic-item:hover {
-	background-color: #EEEEEE;
+#main-block #topics .elem-list .topic-item:hover {
+	background-color: #F8F8F8;
 }
-#main-block .elem-list .topic-item p {
+#main-block #topics .elem-list .topic-item p {
 	margin-top: 5px;
 	font-size: 1em;
 	padding: 0px 10px;
 	color: #000000;
 	text-align: justify;
 }
-#main-block .elem-list .topic-item h3 {
+#main-block #topics .elem-list .topic-item h3 {
 	font-size: 25px;
 	padding: 0px 10px;
-	color: #7B1113;
+	color: #4EB1BA;
 }
-#main-block .elem-list .topic-item #questions {
+#main-block #topics .elem-list .topic-item #questions {
 	margin-top: 5px;
 	font-size: 20px;
-	color: #7B1113;
+	color: #4EB1BA;
 }
-#main-block .elem-list .topic-item ul li {
+#main-block #topics .elem-list .topic-item ul li {
 	margin-left: 30px;
-	color: #7B1113;
+	color: #4EB1BA;
 	list-style: disc;
 }
 
@@ -287,7 +312,8 @@ nav ul li:hover ul {
 #main-block #form-content {
 	display: block;
 	float: left;
-	height: 500px;
+	min-height: 428px;
+	margin-bottom: 5px;
 	width: 440px;
 	padding: 20px 50px;
 	background-color: #FFFFFF;
@@ -315,7 +341,8 @@ nav ul li:hover ul {
 }
 #main-block #statements {
 	display: block;
-	height: 500px;
+	min-height: 428px;
+	margin-bottom: 5px;
 	width: 400px;
 	float: right;
 	font-size: 35px;
@@ -353,9 +380,6 @@ nav ul li:hover ul {
 	color: #000000;
 	padding: 20px;
 	margin-bottom: 5px;
-}
-#main-block #faq p {
-	margin-top: 10px;
 }
 
 /*main footer-----------------------------------------------------------------*/

@@ -13,7 +13,7 @@ function addAnswer(queIndex){
 	ansCount[queIndex-1]++;
 	var newdiv = document.createElement('div');
 	newdiv.id = "answer"+queIndex+"-"+ansCount[queIndex];
-	newdiv.innerHTML = "<input type='text' size='50' name='answers"+queIndex+"[]' placeholder='Answer'></br>";
+	newdiv.innerHTML = "<input type='text' size='50' name='answers"+queIndex+"[]' placeholder='Answer' required/></br>";
 	//"<input type=\"text\" size=\"100\" name=\"answer"+ansCount+"\" id=\"answer"+ansCount+"\" placeholder=\"answer "+ansCount+"\"></br>";
 	document.getElementById("answers"+queIndex).appendChild(newdiv);
 	//window.alert(ansCount);
@@ -34,14 +34,15 @@ function addQuestion(){
 	queCount++;
 	var newdiv = document.createElement('div');
 	newdiv.id = "question"+queCount;
-	var out = "<input name='questions[]' type='text' size='39' placeholder='Question'>";
-	out = out + "<h4>Answers:</h4> <div id='answers"+queCount+"'>";
-	out = out + "<input type='text' size='50' name='answers"+queCount+"[]' placeholder='Answer'></br>";
-	out = out + "<input type='text' size='50' name='answers"+queCount+"[]' placeholder='Answer'></br>";
+	var out = "<p>Question:</p> <input name='questions[]' type='text' size='39' placeholder='Question' required/>";
+	out = out + "<p>Answers:</p> <div id='answers"+queCount+"'>";
+	out = out + "<input type='text' size='50' name='answers"+queCount+"[]' placeholder='Answer' required/></br>";
+	out = out + "<input type='text' size='50' name='answers"+queCount+"[]' placeholder='Answer' required/></br>";
 	out = out + "</div>";
-	out = out + "<input type='button' name='add_answer' id='addAnswerButton' value='Add an Answer' onclick='addAnswer("+queCount+")'>"
-	out = out + "<input type='button' name='del_answer' id='delAnswerButton' value='Delete last Answer' onclick='delAnswer("+queCount+")'>";
-	out = out + "</br></br>";
+	out = out + "<div id='answer-commands'>";
+	out = out + "<input type='button' name='add_answer' id='addAnswerButton' value='Add an Answer' onclick='addAnswer("+queCount+")' />"
+	out = out + "<input type='button' name='del_answer' id='delAnswerButton' value='Delete last Answer' onclick='delAnswer("+queCount+")' />";
+	out = out + "</div></br></br>";
 /*
 					<input name="topic_question" id="question" type="text" size="39" placeholder="Question" value="<?php echo $question;?>">
 					<h3>Answers:</h3>

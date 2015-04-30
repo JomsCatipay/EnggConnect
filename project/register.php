@@ -1,5 +1,6 @@
 <?php 
 	require_once 'DBhandle.php';
+	if(isset($_SESSION['loggedin'])) header('Location: http://localhost/project/index.php');
 
 	$clearedFlag = 37;
 	$uErr = $pErr = $p2Err = $dErr = $sErr = "";
@@ -28,7 +29,7 @@
 		if($clearedFlag==37){
 			addUser($user, $pass, $snum, $dept);
 			loginUser($user, $pass);
-			header('Location: http://localhost/EnggConnect/project');
+			header('Location: http://localhost/project');
 		}
 	}
 ?>

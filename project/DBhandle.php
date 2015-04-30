@@ -42,7 +42,7 @@
 		$result = DB::queryFirstRow("SELECT * FROM UserQueue WHERE u_id=%d", $entry);
 		$check = DB::query("SELECT * FROM Users WHERE type='Administrator'");
 
-		if($result['vote_count']>(count($check)/2)){
+		if($result['vote_count']>((count($check)-1)/2)){
 			$pawn = DB::queryFirstRow("SELECT * FROM Users WHERE user_id=%d", $entry);
 			if($pawn['type']=='Contributor') DB::query("UPDATE Users SET type='Administrator' WHERE user_id=%d", $entry);
 			else DB::query("UPDATE Users SET type='Contributor' WHERE user_id=%d", $entry);
@@ -169,7 +169,6 @@
 		));
 	}
 	function post($a_id, $que_id, $exp){
-		echo $que_id;
 		$pawn = DB::queryFirstRow("SELECT * FROM Answers WHERE a_id = %d", $a_id);
 
 	    DB::insert('Posts', array(
@@ -203,6 +202,7 @@
 
 	//--DELETE
 	function deletePost($id){
+		echo $id;
 	    DB::query("UPDATE Posts SET explanation='' WHERE p_id=%d", $id);
 		DB::query("DELETE FROM Replies WHERE p_id=%d", $id);
 		DB::query("DELETE FROM ReportedPosts WHERE post_id=%d", $id);
